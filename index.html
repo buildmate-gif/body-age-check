@@ -417,51 +417,147 @@ body {
 
 /* オファー */
 .r-offer {
-  background: var(--bg);
-  padding: 36px 20px 48px;
+  background: var(--brandDark);
+  padding: 0 0 48px;
 }
-.r-offer-tag {
-  display: inline-block;
-  background: var(--accent);
+.offer-hero {
+  background: var(--brandDark);
+  padding: 36px 20px 28px;
+  text-align: center;
+}
+
+/* LINE限定バッジ（点滅アニメ） */
+.offer-line-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #06C755;
   color: #fff;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  padding: 3px 12px;
-  border-radius: 3px;
-  letter-spacing: 0.08em;
-  margin-bottom: 14px;
+  padding: 8px 20px;
+  border-radius: 30px;
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+  animation: badgePulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(6,199,85,0.6);
 }
-.r-offer-title {
+@keyframes badgePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(6,199,85,0.6); }
+  50%  { box-shadow: 0 0 0 10px rgba(6,199,85,0); }
+  100% { box-shadow: 0 0 0 0 rgba(6,199,85,0); }
+}
+.offer-line-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: dotBlink 1.2s ease-in-out infinite;
+}
+@keyframes dotBlink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+.offer-hero-title {
   font-family: 'Noto Serif JP', serif;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
-  color: var(--text);
-  line-height: 1.5;
-  margin-bottom: 8px;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 6px;
 }
-.r-offer-desc { font-size: 14px; color: var(--gray); margin-bottom: 24px; line-height: 1.8; }
-.r-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
-.r-price-old { font-size: 14px; color: var(--gray); text-decoration: line-through; }
-.r-price-new { font-family: 'Noto Serif JP', serif; font-size: 42px; font-weight: 600; color: var(--accent); line-height: 1; }
-.r-price-unit { font-size: 14px; color: var(--gray); }
-.r-price-note {
+.offer-hero-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+}
+
+/* 価格カード */
+.offer-price-card {
+  background: var(--paper);
+  border-radius: 20px;
+  margin: 0 20px 20px;
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.offer-price-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand), #06C755);
+}
+.offer-price-label {
   font-size: 12px;
-  background: #fff9c4;
-  border-left: 3px solid var(--accent);
-  padding: 8px 14px;
-  border-radius: 0 4px 4px 0;
-  margin-bottom: 24px;
-  color: var(--text);
+  color: var(--gray);
+  margin-bottom: 6px;
+  letter-spacing: 0.06em;
 }
-.r-offer-list { list-style: none; padding: 0; margin-bottom: 24px; }
-.r-offer-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--borderCard);
+.offer-price-old {
   font-size: 15px;
+  color: var(--gray);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+.offer-price-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  animation: priceIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation-delay: 0.3s;
+}
+@keyframes priceIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.offer-price-num {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 72px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+.offer-price-yen {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-bottom: 8px;
+}
+.offer-price-note {
+  display: inline-block;
+  background: #fff9c4;
   color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid #f0e060;
+}
+
+/* 内容リスト */
+.offer-body {
+  padding: 0 20px;
+}
+.offer-list-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.r-offer-list { list-style: none; padding: 0; margin-bottom: 20px; }
+.r-offer-list li {
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 15px;
+  color: rgba(255,255,255,0.9);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .r-offer-list li::before {
   content: '';
@@ -471,7 +567,12 @@ body {
   flex-shrink: 0;
 }
 .r-offer-list li:last-child { border-bottom: none; }
-.r-offer-time { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+.r-offer-time {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
+  text-align: center;
+}
 .cta-btn {
   display: flex;
   align-items: center;
@@ -501,8 +602,8 @@ body {
   display: block;
   width: 100%;
   background: none;
-  border: 1.5px solid var(--brand);
-  color: var(--brandDark);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.7);
   font-size: 14px;
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 500;
@@ -512,7 +613,7 @@ body {
   text-align: center;
   transition: all 0.15s;
 }
-.retry-btn:hover { background: var(--brand); color: var(--text); }
+.retry-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); color: #fff; }
 
 /* トランジション */
 .q-body { animation: fadeUp 0.22s ease both; }
@@ -673,26 +774,43 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   </div>
 
   <div class="r-offer">
-    <div class="r-inner">
-    <div class="r-offer-tag">LINE登録者限定オファー</div>
-    <h2 class="r-offer-title">あなたの身体年齢を<br>詳しく調べませんか？</h2>
-    <p class="r-offer-desc">チェックシートではわからない「足年齢・歩行・重心・姿勢・自律神経」を専門機器で測定します。</p>
-    <div class="r-price-row">
-      <span class="r-price-old">通常 2,000円</span>
-      <span class="r-price-new">500</span><span class="r-price-unit">円</span>
+
+    <!-- ヒーロー：バッジ＋タイトル -->
+    <div class="offer-hero">
+      <div class="offer-line-badge">
+        <div class="offer-line-badge-dot"></div>
+        LINE登録者限定オファー
+      </div>
+      <div class="offer-hero-title">あなたの身体年齢を<br>詳しく調べませんか？</div>
+      <div class="offer-hero-sub">チェックでは測れない「足年齢・歩行・重心・姿勢・自律神経」<br>を専門機器で測定します。</div>
     </div>
-    <div class="r-price-note">LINE登録者限定価格。初回のみ適用。</div>
-    <ul class="r-offer-list">
-      <li>足年齢測定</li>
-      <li>歩行分析</li>
-      <li>重心測定</li>
-      <li>姿勢分析</li>
-      <li>自律神経測定</li>
-    </ul>
-    <div class="r-offer-time">所要時間：約30分</div>
-    <a href="#" class="cta-btn" id="lineCta"><svg class="line-icon" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.16 4 4 10.27 4 18c0 5.5 3.44 10.3 8.6 13.04-.24.9-.93 3.27-1.07 3.78-.17.64.24.63.5.46.2-.13 3.24-2.14 4.56-3.01.84.12 1.7.18 2.58.18C28.84 32.45 36 26.18 36 18S28.84 4 20 4z"/></svg>LINEで友だち追加して測定予約する</a>
-    <button class="retry-btn" onclick="retryQuiz()">もう一度診断する</button>
+
+    <!-- 価格カード -->
+    <div class="offer-price-card">
+      <div class="offer-price-label">通常価格</div>
+      <div class="offer-price-old">2,000円</div>
+      <div class="offer-price-main">
+        <div class="offer-price-num">500</div>
+        <div class="offer-price-yen">円</div>
+      </div>
+      <div class="offer-price-note">LINE登録者限定・初回のみ適用</div>
     </div>
+
+    <!-- 内容リスト -->
+    <div class="offer-body">
+      <div class="offer-list-title">測定内容</div>
+      <ul class="r-offer-list">
+        <li>足年齢測定</li>
+        <li>歩行分析</li>
+        <li>重心測定</li>
+        <li>姿勢分析</li>
+        <li>自律神経測定</li>
+      </ul>
+      <div class="r-offer-time">所要時間：約30分</div>
+      <a href="https://line.me/R/ti/p/@xat.0000130802.85a" class="cta-btn" id="lineCta" target="_blank" rel="noopener"><svg class="line-icon" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.16 4 4 10.27 4 18c0 5.5 3.44 10.3 8.6 13.04-.24.9-.93 3.27-1.07 3.78-.17.64.24.63.5.46.2-.13 3.24-2.14 4.56-3.01.84.12 1.7.18 2.58.18C28.84 32.45 36 26.18 36 18S28.84 4 20 4z"/></svg>LINEで友だち追加して測定予約する</a>
+      <button class="retry-btn" onclick="retryQuiz()">もう一度診断する</button>
+    </div>
+
   </div>
 
   <footer><p>&copy; 2026 豊中愛整骨院 All Rights Reserved.</p></footer>
