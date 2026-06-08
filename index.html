@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>足からわかるカラダ年齢テスト</title>
+<meta name="description" content="足・姿勢・自律神経・栄養・老化リスクの19項目で、あなたのカラダ年齢を診断します。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f5f9eb;
+  --paper:     #ffffff;
+  --text:      #2d3a1a;
+  --gray:      #5a6645;
+  --brand:     #90c420;
+  --brandDark: #5e8a12;
+  --brandLight:#e8f5c8;
+  --accent:    #e8640e;
+  --accentHover:#c9540b;
+  --border:    #d4e8a0;
+  --borderCard:#e2edd0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== SCREEN MANAGER ===== */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ===== TOP PAGE ===== */
+#screen-top {
+  background: var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+.top-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+.top-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.top-subtitle {
+  font-size: 14px;
+  color: var(--gray);
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+.top-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.top-cat {
+  background: var(--paper);
+  border: 1px solid var(--borderCard);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--brandDark);
+  font-weight: 500;
+}
+.start-btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  background: var(--brand);
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 18px 24px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, transform 0.1s;
+}
+.start-btn:hover { background: var(--brandDark); color: #fff; }
+.start-btn:active { transform: scale(0.98); }
+.top-note {
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 14px;
+}
+
+/* ===== QUESTION PAGE ===== */
+#screen-question {
+  background: var(--bg);
+  flex-direction: column;
+}
+
+/* ヘッダー */
+.q-header {
+  padding: 16px 20px 12px;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.q-header-inner {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.q-back {
+  background: var(--paper);
+  border: 1.5px solid var(--borderCard);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brandDark);
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  padding: 7px 16px 7px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 14px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.q-back:hover { background: var(--brandLight); border-color: var(--brand); }
+.q-back svg { width: 14px; height: 14px; }
+
+/* プログレスバー */
+.q-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.q-progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--borderCard);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.q-progress-fill {
+  height: 100%;
+  background: var(--brand);
+  border-radius: 3px;
+  transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.q-progress-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brandDark);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* 質問本体 */
+.q-body {
+  flex: 1;
+  padding: 28px 20px 40px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+.q-category-label {
+  display: inline-block;
+  background: var(--brandLight);
+  color: var(--brandDark);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+.q-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.q-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.q-subtext {
+  font-size: 13px;
+  color: var(--gray);
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+/* 選択肢カード */
+.q-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.choice-card {
+  background: var(--paper);
+  border: 1.5px solid var(--borderCard);
+  border-radius: 16px;
+  padding: 20px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.choice-card.yes-card:hover {
+  border-color: var(--brand);
+  background: var(--brandLight);
+}
+.choice-card.no-card:hover {
+  border-color: var(--borderCard);
+  background: #f5f5f5;
+}
+.choice-card:active {
+  transform: scale(0.98);
+}
+.choice-card.selected-yes {
+  border-color: var(--brand);
+  background: var(--brandLight);
+}
+.choice-card.selected-no {
+  border-color: var(--borderCard);
+  background: #f8f8f8;
+}
+
+.choice-circle {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--borderCard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray);
+  letter-spacing: 0.02em;
+  transition: all 0.15s;
+}
+.choice-card.selected-yes .choice-circle {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--text);
+}
+.choice-card.selected-no .choice-circle {
+  background: var(--borderCard);
+  border-color: var(--borderCard);
+  color: var(--gray);
+}
+
+.choice-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.5;
+}
+.choice-point {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brandDark);
+  white-space: nowrap;
+}
+
+/* ===== RESULT PAGE ===== */
+.r-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+#screen-result {
+  background: var(--bg);
+  flex-direction: column;
+}
+.r-header {
+  background: var(--brandDark);
+  padding: 48px 24px 36px;
+  text-align: center;
+  color: #fff;
+}
+.r-header-label {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 10px;
+}
+.r-score-num {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 80px;
+  font-weight: 600;
+  color: var(--brand);
+  line-height: 1;
+}
+.r-score-unit { font-size: 22px; color: rgba(255,255,255,0.8); margin-left: 4px; }
+.r-grade-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 30px;
+  margin-top: 16px;
+  letter-spacing: 0.04em;
+}
+.r-grade-badge.warn { background: var(--accent); }
+.r-grade-badge.danger { background: #8b2a00; }
+
+.r-bar-section {
+  background: var(--paper);
+  padding: 28px 20px;
+  border-bottom: 1px solid var(--borderCard);
+}
+.r-bar-wrap {
+  background: var(--borderCard);
+  border-radius: 6px;
+  height: 14px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.r-bar-fill {
+  height: 100%;
+  background: var(--brand);
+  border-radius: 6px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1);
+  width: 0%;
+}
+.r-bar-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--gray);
+}
+
+.r-message-section {
+  padding: 28px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--borderCard);
+}
+.r-message-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--brandDark);
+  margin-bottom: 10px;
+}
+.r-message-body {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.9;
+}
+
+/* カテゴリ別内訳 */
+.r-breakdown {
+  background: var(--paper);
+  padding: 28px 20px;
+  border-bottom: 1px solid var(--borderCard);
+}
+.r-breakdown h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.r-brow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borderCard);
+}
+.r-brow:last-child { border-bottom: none; }
+.r-bcat { font-size: 13px; font-weight: 500; color: var(--text); min-width: 130px; }
+.r-bbar-wrap { flex: 1; height: 8px; background: var(--borderCard); border-radius: 4px; overflow: hidden; }
+.r-bbar-fill { height: 100%; background: var(--brand); border-radius: 4px; transition: width 1s ease; }
+.r-bpts { font-size: 13px; font-weight: 700; color: var(--brandDark); min-width: 52px; text-align: right; }
+
+/* オファー */
+.r-offer {
+  background: var(--bg);
+  padding: 36px 20px 48px;
+}
+.r-offer-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 3px;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.r-offer-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.r-offer-desc { font-size: 14px; color: var(--gray); margin-bottom: 24px; line-height: 1.8; }
+.r-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.r-price-old { font-size: 14px; color: var(--gray); text-decoration: line-through; }
+.r-price-new { font-family: 'Noto Serif JP', serif; font-size: 42px; font-weight: 600; color: var(--accent); line-height: 1; }
+.r-price-unit { font-size: 14px; color: var(--gray); }
+.r-price-note {
+  font-size: 12px;
+  background: #fff9c4;
+  border-left: 3px solid var(--accent);
+  padding: 8px 14px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+.r-offer-list { list-style: none; padding: 0; margin-bottom: 24px; }
+.r-offer-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borderCard);
+  font-size: 15px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.r-offer-list li::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  flex-shrink: 0;
+}
+.r-offer-list li:last-child { border-bottom: none; }
+.r-offer-time { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #06C755;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 18px 24px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, transform 0.1s;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+.cta-btn:hover { background: #05b34c; }
+.cta-btn:active { transform: scale(0.98); }
+.cta-btn .line-icon { width: 26px; height: 26px; flex-shrink: 0; }
+
+.retry-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: 1.5px solid var(--brand);
+  color: var(--brandDark);
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  padding: 14px 24px;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.retry-btn:hover { background: var(--brand); color: var(--text); }
+
+/* トランジション */
+.q-body { animation: fadeUp 0.22s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+  background: var(--brandDark);
+  padding: 20px;
+  text-align: center;
+}
+footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
+
+/* ===== スマホ共通 ===== */
+@media (max-width: 600px) {
+  #screen-top { padding: 40px 20px; }
+  .top-title { font-size: 24px; }
+  .top-subtitle { font-size: 13px; }
+  .start-btn { font-size: 16px; padding: 16px 20px; }
+
+  .q-header { padding: 10px 16px 8px; }
+  .q-back { font-size: 12px; padding: 6px 12px 6px 10px; }
+  .q-progress-text { font-size: 12px; }
+
+  .q-body { padding: 22px 16px 32px; }
+  .q-text { font-size: 20px; }
+  .q-subtext { font-size: 12px; margin-bottom: 24px; }
+  .q-category-label { font-size: 10px; }
+  .q-num-badge { width: 32px; height: 32px; font-size: 12px; }
+
+  .choice-card { padding: 16px 14px; gap: 12px; border-radius: 14px; }
+  .choice-circle { width: 34px; height: 34px; min-width: 34px; font-size: 10px; }
+  .choice-text { font-size: 15px; }
+  .choice-point { font-size: 12px; }
+
+  .r-header { padding: 36px 20px 28px; }
+  .r-score-num { font-size: 64px; }
+  .r-score-unit { font-size: 18px; }
+  .r-grade-badge { font-size: 13px; padding: 6px 18px; }
+
+  .r-breakdown { padding: 24px 16px; }
+  .r-bcat { min-width: 96px; font-size: 12px; }
+  .r-bpts { font-size: 12px; min-width: 44px; }
+
+  .r-offer { padding: 28px 16px 40px; }
+  .r-offer-title { font-size: 20px; }
+  .r-price-new { font-size: 36px; }
+  .cta-btn { font-size: 15px; padding: 16px 16px; border-radius: 12px; gap: 8px; }
+  .cta-btn .line-icon { width: 22px; height: 22px; }
+  .retry-btn { font-size: 13px; padding: 13px 20px; border-radius: 12px; }
+
+  .r-bar-section { padding: 20px 16px; }
+  .r-message-section { padding: 22px 16px; }
+  .r-message-title { font-size: 18px; }
+  .r-message-body { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== TOP ========== -->
+<div class="screen active" id="screen-top">
+  <div style="width:100%;max-width:520px;margin:0 auto;">
+    <div class="top-badge">それって老化かも…？</div>
+    <h1 class="top-title">足からわかる<br>カラダ年齢テスト</h1>
+    <p class="top-subtitle">足・姿勢・自律神経・栄養・老化リスク<br>5分野・19項目で診断します</p>
+    <div class="top-cats">
+      <span class="top-cat">足の機能</span>
+      <span class="top-cat">姿勢・歩行</span>
+      <span class="top-cat">自律神経</span>
+      <span class="top-cat">栄養状態</span>
+      <span class="top-cat">老化リスク</span>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">診断スタート</button>
+    <p class="top-note">全19問・所要時間1〜2分</p>
+  </div>
+</div>
+
+<!-- ========== QUESTION ========== -->
+<div class="screen" id="screen-question">
+  <div class="q-header">
+    <div class="q-header-inner">
+      <button class="q-back" onclick="goBack()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 3L5 8l5 5"/>
+        </svg>
+        前の問題に戻る
+      </button>
+      <div class="q-progress-row">
+        <div class="q-progress-track">
+          <div class="q-progress-fill" id="progressFill"></div>
+        </div>
+        <div class="q-progress-text" id="progressText">1 / 19</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-body" id="qBody">
+    <!-- JS で描画 -->
+  </div>
+</div>
+
+<!-- ========== RESULT ========== -->
+<div class="screen" id="screen-result">
+  <div class="r-header">
+    <div class="r-header-label">診断結果</div>
+    <div>
+      <span class="r-score-num" id="rScoreNum">0</span><span class="r-score-unit">点</span>
+    </div>
+    <div><span class="r-grade-badge" id="rGrade">---</span></div>
+  </div>
+
+  <div class="r-bar-section">
+    <div class="r-inner">
+      <div class="r-bar-wrap"><div class="r-bar-fill" id="rBarFill"></div></div>
+      <div class="r-bar-ticks"><span>0点</span><span>50点</span><span>100点</span></div>
+    </div>
+  </div>
+
+  <div class="r-message-section">
+    <div class="r-inner">
+      <div class="r-message-title" id="rTitle">---</div>
+      <div class="r-message-body" id="rBody">---</div>
+    </div>
+  </div>
+
+  <div class="r-breakdown">
+    <div class="r-inner">
+      <h3>カテゴリ別スコア</h3>
+      <div class="r-brow">
+        <div class="r-bcat">足の機能（40点）</div>
+        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bFoot"></div></div>
+        <div class="r-bpts" id="ptsFoot">0/40</div>
+      </div>
+      <div class="r-brow">
+        <div class="r-bcat">姿勢・歩行（20点）</div>
+        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bPosture"></div></div>
+        <div class="r-bpts" id="ptsPosture">0/20</div>
+      </div>
+      <div class="r-brow">
+        <div class="r-bcat">自律神経（20点）</div>
+        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bNerve"></div></div>
+        <div class="r-bpts" id="ptsNerve">0/20</div>
+      </div>
+      <div class="r-brow">
+        <div class="r-bcat">栄養状態（10点）</div>
+        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bNutrition"></div></div>
+        <div class="r-bpts" id="ptsNutrition">0/10</div>
+      </div>
+      <div class="r-brow">
+        <div class="r-bcat">老化リスク（10点）</div>
+        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bAging"></div></div>
+        <div class="r-bpts" id="ptsAging">0/10</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="r-offer">
+    <div class="r-inner">
+    <div class="r-offer-tag">LINE登録者限定オファー</div>
+    <h2 class="r-offer-title">あなたの身体年齢を<br>詳しく調べませんか？</h2>
+    <p class="r-offer-desc">チェックシートではわからない「足年齢・歩行・重心・姿勢・自律神経」を専門機器で測定します。</p>
+    <div class="r-price-row">
+      <span class="r-price-old">通常 2,000円</span>
+      <span class="r-price-new">500</span><span class="r-price-unit">円</span>
+    </div>
+    <div class="r-price-note">LINE登録者限定価格。初回のみ適用。</div>
+    <ul class="r-offer-list">
+      <li>足年齢測定</li>
+      <li>歩行分析</li>
+      <li>重心測定</li>
+      <li>姿勢分析</li>
+      <li>自律神経測定</li>
+    </ul>
+    <div class="r-offer-time">所要時間：約30分</div>
+    <a href="#" class="cta-btn" id="lineCta"><svg class="line-icon" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.16 4 4 10.27 4 18c0 5.5 3.44 10.3 8.6 13.04-.24.9-.93 3.27-1.07 3.78-.17.64.24.63.5.46.2-.13 3.24-2.14 4.56-3.01.84.12 1.7.18 2.58.18C28.84 32.45 36 26.18 36 18S28.84 4 20 4z"/></svg>LINEで友だち追加して測定予約する</a>
+    <button class="retry-btn" onclick="retryQuiz()">もう一度診断する</button>
+    </div>
+  </div>
+
+  <footer><p>&copy; 2025 All Rights Reserved.</p></footer>
+</div>
+
+<script>
+// ===== 設問データ =====
+const QUESTIONS = [
+  // 足の機能（各10点）
+  { id:1,  cat:'foot',      catLabel:'足の機能',   point:10, text:'足指でグーができる',         sub:'足の指をぎゅっと曲げられますか？' },
+  { id:2,  cat:'foot',      catLabel:'足の機能',   point:10, text:'足指でパーができる',         sub:'足の指を大きく広げられますか？' },
+  { id:3,  cat:'foot',      catLabel:'足の機能',   point:10, text:'片足立ちを30秒以上できる',   sub:'壁などに触れずに立ち続けられますか？' },
+  { id:4,  cat:'foot',      catLabel:'足の機能',   point:10, text:'靴底が左右均等に減る',       sub:'靴の裏を確認してみてください。' },
+  // 姿勢・歩行（各5点）
+  { id:5,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'猫背と言われない',           sub:'家族や友人から指摘されたことはありますか？' },
+  { id:6,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'歩くと疲れにくい',           sub:'少し歩いただけで足が重くなりませんか？' },
+  { id:7,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'階段が苦にならない',         sub:'階段を避けてエレベーターを選ぶことはありますか？' },
+  { id:8,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'転びそうになることが少ない', sub:'段差につまずいたり、ふらつくことはありますか？' },
+  // 自律神経（各5点）
+  { id:9,  cat:'nerve',     catLabel:'自律神経',   point:5,  text:'朝スッキリ起きられる',       sub:'目覚めたとき、身体が軽い状態ですか？' },
+  { id:10, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'夜ぐっすり眠れる',           sub:'途中覚醒や寝つきの悪さはありますか？' },
+  { id:11, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'イライラしにくい',           sub:'感情の波が激しくなることはありますか？' },
+  { id:12, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'肩こり・首こりが少ない',     sub:'慢性的なこりや張りを感じていますか？' },
+  // 栄養状態（各2点）
+  { id:13, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'甘い物を毎日欲しない',       sub:'毎日甘い物が食べたくなりますか？' },
+  { id:14, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'タンパク質を毎日食べる',     sub:'肉・魚・卵・豆類を毎日摂れていますか？' },
+  { id:15, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'水を1.5L以上飲む',          sub:'1日の水分摂取量を意識していますか？' },
+  { id:16, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'便通が良い',                 sub:'毎日スムーズな排便がありますか？' },
+  { id:17, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'疲れが翌日に残りにくい',     sub:'前日の疲労を持ち越すことはありますか？' },
+  // 老化リスク（各2点）
+  { id:18, cat:'aging',     catLabel:'老化リスク', point:2,  text:'足がつりにくい',             sub:'就寝中や運動中に足がつることはありますか？' },
+  { id:19, cat:'aging',     catLabel:'老化リスク', point:2,  text:'むくみが少ない',             sub:'夕方に足がむくんでいることはありますか？' },
+  // ※残りの aging 項目は点数に含むが、19問で収める
+];
+
+// 実際には全19問を定義（元の20項目から重複なし）
+// 老化リスク残り3項目を追加
+QUESTIONS.push(
+  { id:20, cat:'aging', catLabel:'老化リスク', point:2, text:'冷え性ではない',   sub:'手足の冷えを慢性的に感じていますか？' },
+  { id:21, cat:'aging', catLabel:'老化リスク', point:2, text:'肌ツヤが良い',     sub:'最近、肌の乾燥やくすみが気になりますか？' },
+  { id:22, cat:'aging', catLabel:'老化リスク', point:2, text:'疲れやすくない',   sub:'以前より体力が落ちたと感じることはありますか？' }
+);
+// 全22項目 → ただし合計100点になるよう設問をそのまま使う（foot×4=40, posture×4=20, nerve×4=20, nutrition×5=10, aging×5=10 = 100点）
+
+const TOTAL = QUESTIONS.length;
+let currentIndex = 0;
+let answers = new Array(TOTAL).fill(null); // null=未回答, true=はい, false=いいえ
+let catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+  currentIndex = 0;
+  answers = new Array(TOTAL).fill(null);
+  catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
+  showScreen('screen-question');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentIndex];
+  const pct = (currentIndex / TOTAL) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = (currentIndex + 1) + ' / ' + TOTAL;
+
+  const body = document.getElementById('qBody');
+  // フェードのためにクラスを付け直す
+  body.style.animation = 'none';
+  body.offsetHeight; // reflow
+  body.style.animation = '';
+
+  body.innerHTML = `
+    <div class="q-category-label">${q.catLabel}</div>
+    <div class="q-num-badge">Q${q.id}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="q-subtext">${q.sub}</div>
+    <div class="q-choices">
+      <div class="choice-card yes-card" onclick="selectAnswer(true)" id="choiceYes">
+        <div class="choice-circle">YES</div>
+        <div class="choice-text">はい・当てはまる</div>
+        <div class="choice-point">+${q.point}点</div>
+      </div>
+      <div class="choice-card no-card" onclick="selectAnswer(false)" id="choiceNo">
+        <div class="choice-circle">NO</div>
+        <div class="choice-text">いいえ・当てはまらない</div>
+        <div class="choice-point" style="color:var(--gray);">0点</div>
+      </div>
+    </div>
+  `;
+}
+
+function selectAnswer(isYes) {
+  const q = QUESTIONS[currentIndex];
+
+  // 視覚フィードバック
+  const yCard = document.getElementById('choiceYes');
+  const nCard = document.getElementById('choiceNo');
+  if (isYes) {
+    yCard.classList.add('selected-yes');
+  } else {
+    nCard.classList.add('selected-no');
+  }
+
+  // スコア記録
+  answers[currentIndex] = isYes;
+
+  // 少し待ってから遷移（0.22秒 = タップの反応を見せる）
+  setTimeout(() => {
+    currentIndex++;
+    if (currentIndex >= TOTAL) {
+      calcResult();
+      showScreen('screen-result');
+      renderResult();
+    } else {
+      renderQuestion();
+    }
+  }, 220);
+}
+
+function goBack() {
+  if (currentIndex === 0) {
+    showScreen('screen-top');
+  } else {
+    // 直前の回答を取り消す
+    const prev = QUESTIONS[currentIndex - 1];
+    if (answers[currentIndex - 1] === true) {
+      catScores[prev.cat] -= prev.point;
+    }
+    answers[currentIndex - 1] = null;
+    currentIndex--;
+    renderQuestion();
+  }
+}
+
+function calcResult() {
+  catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
+  QUESTIONS.forEach((q, i) => {
+    if (answers[i] === true) catScores[q.cat] += q.point;
+  });
+}
+
+function renderResult() {
+  const total = Object.values(catScores).reduce((a, b) => a + b, 0);
+  document.getElementById('rScoreNum').textContent = total;
+
+  // スコアバー
+  setTimeout(() => {
+    document.getElementById('rBarFill').style.width = (total / 100 * 100) + '%';
+  }, 100);
+
+  // 判定
+  let grade, gradeClass, title, body;
+  if (total >= 90) {
+    grade = '健康優等生';        gradeClass = '';
+    title = 'あなたの足は健康資産です';
+    body  = '足指・姿勢・自律神経のバランスが安定しています。今の生活習慣を継続することで、将来にわたって健やかな身体を維持できます。';
+  } else if (total >= 70) {
+    grade = '要メンテナンス';    gradeClass = '';
+    title = 'まだ間に合います';
+    body  = '一部の機能低下が始まっているサインがあります。今のうちにケアを始めることで、将来の不調予防が期待できます。';
+  } else if (total >= 50) {
+    grade = '不調予備軍';        gradeClass = 'warn';
+    title = '身体の土台が揺らいでいます';
+    body  = '肩こり・腰痛・疲労感・睡眠の質低下が起きやすい状態です。身体の土台である足から見直すことが大切です。';
+  } else if (total >= 30) {
+    grade = '身体の土台崩壊注意'; gradeClass = 'warn';
+    title = '老化加速ゾーンに入っています';
+    body  = '足・姿勢・自律神経の乱れが複合的に進んでいます。身体の使い方と生活習慣を早急に見直すタイミングです。';
+  } else {
+    grade = '老化加速ゾーン';    gradeClass = 'danger';
+    title = '専門的なサポートが必要な状態です';
+    body  = '足元のバランス低下や生活習慣の影響が強く出ている可能性があります。一度専門的な検査と測定をおすすめします。';
+  }
+
+  const gEl = document.getElementById('rGrade');
+  gEl.textContent = grade;
+  gEl.className = 'r-grade-badge' + (gradeClass ? ' ' + gradeClass : '');
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rBody').textContent = body;
+
+  // カテゴリ別
+  const catCfg = [
+    { cat:'foot',      bar:'bFoot',      pts:'ptsFoot',      max:40 },
+    { cat:'posture',   bar:'bPosture',   pts:'ptsPosture',   max:20 },
+    { cat:'nerve',     bar:'bNerve',     pts:'ptsNerve',     max:20 },
+    { cat:'nutrition', bar:'bNutrition', pts:'ptsNutrition', max:10 },
+    { cat:'aging',     bar:'bAging',     pts:'ptsAging',     max:10 },
+  ];
+  catCfg.forEach(c => {
+    const s = catScores[c.cat];
+    setTimeout(() => {
+      document.getElementById(c.bar).style.width = (s / c.max * 100) + '%';
+    }, 300);
+    document.getElementById(c.pts).textContent = s + '/' + c.max;
+  });
+}
+
+function retryQuiz() {
+  showScreen('screen-top');
+}
+</script>
+</body>
+</html>
