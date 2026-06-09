@@ -529,6 +529,271 @@ footer {
 }
 footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 
+/* ===== 年齢入力 ===== */
+.age-select-wrap {
+  margin-bottom: 24px;
+  text-align: left;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.age-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.age-select-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.age-select {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--paper);
+  border: 2px solid var(--brand);
+  border-radius: 10px;
+  padding: 10px 16px;
+  width: 160px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  text-align: center;
+}
+.age-select:focus { outline: none; border-color: var(--brandDark); }
+.age-unit { font-size: 16px; font-weight: 700; color: var(--text); }
+
+/* ===== 結果ページ新デザイン ===== */
+
+/* 共通 */
+.ra-section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.6); margin-bottom: 10px; text-align: center;
+}
+.ra-section-title {
+  font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600;
+  color: var(--text); margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 2px solid var(--brand);
+}
+
+/* ① 身体年齢ヒーロー */
+.ra-hero {
+  background: var(--brandDark);
+  padding: 44px 20px 40px;
+}
+.ra-hero-title {
+  font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 600;
+  color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+.ra-age-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 20px;
+}
+.ra-age-col {
+  background: rgba(255,255,255,0.12); border-radius: 16px;
+  padding: 16px 20px; text-align: center; min-width: 110px;
+}
+.ra-age-col.highlight {
+  background: var(--brand); border-radius: 16px;
+}
+.ra-age-sublabel { font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+.ra-age-col.highlight .ra-age-sublabel { color: rgba(45,58,26,0.8); }
+.ra-age-num {
+  font-family: 'Noto Serif JP', serif; font-size: 48px; font-weight: 600;
+  color: #fff; line-height: 1;
+  animation: ageIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.ra-age-col.highlight .ra-age-num { color: var(--text); }
+@keyframes ageIn {
+  from { opacity:0; transform: scale(0.7); }
+  to   { opacity:1; transform: scale(1); }
+}
+.ra-age-unit { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+.ra-age-col.highlight .ra-age-unit { color: rgba(45,58,26,0.7); }
+.ra-age-arrow { font-size: 24px; color: rgba(255,255,255,0.4); }
+.ra-age-message {
+  background: rgba(255,255,255,0.12); border-radius: 10px;
+  padding: 14px 18px; text-align: center; font-size: 15px; font-weight: 700;
+  color: #fff; margin-bottom: 14px; line-height: 1.7;
+}
+.ra-age-message .young { color: var(--brand); }
+.ra-age-message .old   { color: #ff9966; }
+.ra-age-note {
+  font-size: 11px; color: rgba(255,255,255,0.5); text-align: center; line-height: 1.8;
+}
+
+/* ② リスク判定 */
+.ra-risk-section {
+  background: var(--bg); padding: 36px 20px;
+  border-bottom: 1px solid var(--borderCard);
+}
+.risk-card {
+  background: var(--paper);
+  border-radius: 16px;
+  padding: 22px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(45,58,26,0.07);
+}
+.risk-card:last-child { margin-bottom: 0; }
+.risk-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.risk-card-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15px; font-weight: 600; color: var(--text);
+}
+.risk-badge {
+  font-size: 12px; font-weight: 700; padding: 5px 16px;
+  border-radius: 20px; letter-spacing: 0.06em;
+}
+.risk-badge.high   { background: #c0392b; color: #fff; }
+.risk-badge.middle { background: #e67e22; color: #fff; }
+.risk-badge.low    { background: var(--brand); color: var(--text); }
+.risk-divider {
+  height: 1px; background: var(--borderCard); margin-bottom: 12px;
+}
+.risk-desc { font-size: 13px; color: var(--gray); margin-bottom: 12px; line-height: 1.7; }
+.risk-symptoms {
+  list-style: none; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;
+}
+.risk-symptoms li {
+  background: var(--bg); border: 1px solid var(--borderCard);
+  border-radius: 6px; padding: 4px 12px; font-size: 12px; color: var(--gray);
+}
+.risk-symptoms li.active {
+  background: #fdf2f2; border-color: #e6b8b8; color: #c0392b; font-weight: 700;
+}
+.risk-card-footer {
+  font-size: 12px; color: var(--gray);
+  border-top: 1px solid var(--borderCard);
+  padding-top: 10px; margin-top: 4px; line-height: 1.7;
+}
+
+/* ③ おすすめ健康チェック */
+.ra-check-section {
+  background: var(--paper); padding: 36px 20px;
+  border-bottom: 1px solid var(--borderCard);
+}
+.ra-check-lead {
+  font-size: 14px; color: var(--gray); margin-bottom: 20px;
+  font-weight: 500; line-height: 1.7;
+}
+.ra-check-card {
+  background: var(--bg); border-radius: 16px;
+  padding: 20px; margin-bottom: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ra-check-card:last-child { margin-bottom: 0; }
+.ra-check-card-header {
+  display: flex; align-items: center; gap: 10px;
+}
+.ra-check-card-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--brand); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+  font-size: 16px;
+}
+.ra-check-card-title {
+  font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 600;
+  color: var(--text);
+}
+.ra-check-card-body { font-size: 13px; color: var(--gray); line-height: 1.7; }
+.ra-check-list {
+  list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px;
+}
+.ra-check-list li {
+  background: var(--paper); border: 1px solid var(--borderCard);
+  color: var(--text); font-size: 12px; padding: 3px 12px; border-radius: 20px;
+}
+.ra-check-card-sub { font-size: 12px; color: var(--gray); }
+
+/* ④ 不調の原因 */
+.ra-cause-section {
+  background: var(--bg); padding: 36px 20px;
+  border-bottom: 1px solid var(--borderCard);
+}
+.ra-cause-lead {
+  font-size: 16px; font-weight: 700; color: var(--text);
+  margin-bottom: 20px; line-height: 1.9;
+}
+.ra-cause-list {
+  list-style: none; padding: 0; margin-bottom: 20px;
+}
+.ra-cause-list li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 16px; border-radius: 12px;
+  background: var(--paper); font-size: 14px; font-weight: 700;
+  color: var(--text); margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(45,58,26,0.06);
+}
+.ra-cause-list li::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brand); flex-shrink: 0;
+}
+.ra-cause-sub {
+  font-size: 14px; color: var(--gray); line-height: 1.9;
+  background: var(--paper); border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(45,58,26,0.06);
+}
+
+/* ⑤ オファー */
+.ra-offer-section {
+  background: var(--paper); padding: 36px 20px 40px;
+  border-top: 4px solid var(--brand);
+}
+.ra-offer-badge {
+  display: inline-block; background: var(--accent); color: #fff;
+  font-size: 11px; font-weight: 700; padding: 4px 14px;
+  border-radius: 20px; letter-spacing: 0.08em; margin-bottom: 16px;
+}
+.ra-offer-title {
+  font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600;
+  color: var(--text); line-height: 1.6; margin-bottom: 20px;
+  border-bottom: 1px solid var(--borderCard); padding-bottom: 16px;
+}
+.ra-price-row { margin-bottom: 4px; }
+.ra-price-old { font-size: 14px; color: var(--gray); text-decoration: line-through; }
+.ra-price-main {
+  display: flex; align-items: flex-end; gap: 4px;
+  margin-bottom: 12px;
+  animation: ageIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.ra-price-num {
+  font-family: 'Noto Serif JP', serif; font-size: 72px; font-weight: 600;
+  color: var(--accent); line-height: 1;
+}
+.ra-price-yen { font-size: 24px; font-weight: 700; color: var(--accent); padding-bottom: 8px; }
+.ra-price-note {
+  font-size: 12px; background: #fff9c4; color: var(--text);
+  border-left: 3px solid var(--accent);
+  padding: 6px 14px; border-radius: 0 4px 4px 0;
+  display: inline-block; margin-bottom: 24px;
+}
+
+/* ⑥ 院情報フッター */
+.ra-footer {
+  background: #1a2510; padding: 32px 20px 40px; text-align: center;
+}
+.ra-clinic-name {
+  font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 600;
+  color: #fff; margin-bottom: 4px;
+}
+.ra-clinic-sub { font-size: 13px; color: var(--brand); margin-bottom: 16px; }
+.ra-clinic-info {
+  font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.9; margin-bottom: 20px;
+}
+.ra-copyright { font-size: 11px; color: rgba(255,255,255,0.3); }
+
 /* ===== スマホ共通 ===== */
 @media (max-width: 600px) {
   #screen-top { padding: 40px 20px; }
@@ -589,8 +854,17 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
       <span class="top-cat">栄養状態</span>
       <span class="top-cat">老化リスク</span>
     </div>
+    <div class="age-select-wrap">
+      <label class="age-label" for="ageSelect">あなたの実年齢を選んでください</label>
+      <div class="age-select-inner">
+        <select id="ageSelect" class="age-select">
+          <option value="">-- 年齢を選ぶ --</option>
+        </select>
+        <span class="age-unit">歳</span>
+      </div>
+    </div>
     <button class="start-btn" onclick="startQuiz()">診断スタート</button>
-    <p class="top-note">全19問・所要時間1〜2分</p>
+    <p class="top-note">全22問・所要時間1〜2分</p>
   </div>
 </div>
 
@@ -620,86 +894,161 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 
 <!-- ========== RESULT ========== -->
 <div class="screen" id="screen-result">
-  <div class="r-header">
-    <div class="r-header-label">診断結果</div>
-    <div>
-      <span class="r-score-num" id="rScoreNum">0</span><span class="r-score-unit">点</span>
-    </div>
-    <div><span class="r-grade-badge" id="rGrade">---</span></div>
-  </div>
 
-  <div class="r-bar-section">
+  <!-- ① 身体年齢ブロック -->
+  <div class="ra-hero">
     <div class="r-inner">
-      <div class="r-bar-wrap"><div class="r-bar-fill" id="rBarFill"></div></div>
-      <div class="r-bar-ticks"><span>0点</span><span>50点</span><span>100点</span></div>
+      <div class="ra-section-label">診断結果</div>
+      <div class="ra-hero-title">あなたの身体年齢</div>
+      <div class="ra-age-row">
+        <div class="ra-age-col">
+          <div class="ra-age-sublabel">実年齢</div>
+          <div class="ra-age-num" id="raRealAge">--</div>
+          <div class="ra-age-unit">歳</div>
+        </div>
+        <div class="ra-age-arrow">→</div>
+        <div class="ra-age-col highlight">
+          <div class="ra-age-sublabel">身体年齢</div>
+          <div class="ra-age-num" id="raBodyAge">--</div>
+          <div class="ra-age-unit">歳</div>
+        </div>
+      </div>
+      <div class="ra-age-message" id="raAgeMessage">---</div>
+      <div class="ra-age-note">身体年齢は、足・姿勢・睡眠・疲労・栄養・生活習慣などから総合的に算出しています。<br>この結果は医療的診断ではありませんが、今後の健康管理の目安になります。</div>
     </div>
   </div>
 
-  <div class="r-message-section">
+  <!-- ② 4つのリスク判定 -->
+  <div class="ra-risk-section">
     <div class="r-inner">
-      <div class="r-message-title" id="rTitle">---</div>
-      <div class="r-message-body" id="rBody">---</div>
+      <div class="ra-section-title">身体年齢が上がる主な原因</div>
+      <div id="riskCards"></div>
     </div>
   </div>
 
-  <div class="r-breakdown">
+  <!-- ③ おすすめ健康チェック -->
+  <div class="ra-check-section">
     <div class="r-inner">
-      <h3>カテゴリ別スコア</h3>
-      <div class="r-brow">
-        <div class="r-bcat">足の機能（40点）</div>
-        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bFoot"></div></div>
-        <div class="r-bpts" id="ptsFoot">0/40</div>
+      <div class="ra-section-title">おすすめの健康チェック</div>
+      <div class="ra-check-lead">あなたにおすすめなのは</div>
+
+      <div class="ra-check-card">
+        <div class="ra-check-card-header">
+          <div class="ra-check-card-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+  <path d="M10 6 Q13 10 10 14 Q7 10 10 6Z" fill="white" opacity="0.8"/>
+</svg></div>
+          <div class="ra-check-card-title">TERRAS体験</div>
+        </div>
+        <div class="ra-check-card-body">特殊加工繊維を使ったTERRASで身体の安定感やリラックス感を体験できます。</div>
       </div>
-      <div class="r-brow">
-        <div class="r-bcat">姿勢・歩行（20点）</div>
-        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bPosture"></div></div>
-        <div class="r-bpts" id="ptsPosture">0/20</div>
+
+      <div class="ra-check-card">
+        <div class="ra-check-card-header">
+          <div class="ra-check-card-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="10" cy="13" rx="5" ry="6" stroke="white" stroke-width="1.5"/>
+  <circle cx="7" cy="5" r="1.5" fill="white"/>
+  <circle cx="10" cy="4" r="1.5" fill="white"/>
+  <circle cx="13" cy="5" r="1.5" fill="white"/>
+</svg></div>
+          <div class="ra-check-card-title">足圧測定</div>
+        </div>
+        <div class="ra-check-card-body">あなたの重心バランスや歩き方を分析します。</div>
+        <ul class="ra-check-list">
+          <li>浮き指</li><li>外反母趾</li><li>扁平足</li><li>重心の偏り</li>
+        </ul>
+        <div class="ra-check-card-sub">などを確認できます。</div>
       </div>
-      <div class="r-brow">
-        <div class="r-bcat">自律神経（20点）</div>
-        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bNerve"></div></div>
-        <div class="r-bpts" id="ptsNerve">0/20</div>
+
+      <div class="ra-check-card">
+        <div class="ra-check-card-header">
+          <div class="ra-check-card-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="10" cy="10" r="4" stroke="white" stroke-width="1.5"/>
+  <path d="M10 2v3M10 15v3M2 10h3M15 10h3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M4.2 4.2l2.1 2.1M13.7 13.7l2.1 2.1M4.2 15.8l2.1-2.1M13.7 6.3l2.1-2.1" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+</svg></div>
+          <div class="ra-check-card-title">酸化チェック</div>
+        </div>
+        <div class="ra-check-card-body">身体のサビつき傾向を確認します。</div>
+        <ul class="ra-check-list">
+          <li>疲労</li><li>老化</li><li>回復力</li><li>生活習慣</li>
+        </ul>
+        <div class="ra-check-card-sub">の見直しポイントが分かります。</div>
       </div>
-      <div class="r-brow">
-        <div class="r-bcat">栄養状態（10点）</div>
-        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bNutrition"></div></div>
-        <div class="r-bpts" id="ptsNutrition">0/10</div>
-      </div>
-      <div class="r-brow">
-        <div class="r-bcat">老化リスク（10点）</div>
-        <div class="r-bbar-wrap"><div class="r-bbar-fill" id="bAging"></div></div>
-        <div class="r-bpts" id="ptsAging">0/10</div>
+
+      <div class="ra-check-card">
+        <div class="ra-check-card-header">
+          <div class="ra-check-card-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 10 Q7 4 10 10 Q13 16 16 10" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <circle cx="4" cy="10" r="1.5" fill="white"/>
+  <circle cx="16" cy="10" r="1.5" fill="white"/>
+</svg></div>
+          <div class="ra-check-card-title">自律神経測定</div>
+        </div>
+        <div class="ra-check-card-body">ストレス状態や回復力を数値で確認します。</div>
       </div>
     </div>
   </div>
 
-  <div class="r-offer">
+  <!-- ④ 不調の原因ブロック -->
+  <div class="ra-cause-section">
     <div class="r-inner">
-    <div class="r-offer-tag">LINE登録者限定オファー</div>
-    <h2 class="r-offer-title">あなたの身体年齢を<br>詳しく調べませんか？</h2>
-    <p class="r-offer-desc">チェックシートではわからない「足年齢・歩行・重心・姿勢・自律神経」を専門機器で測定します。</p>
-    <div class="r-price-row">
-      <span class="r-price-old">通常 2,000円</span>
-      <span class="r-price-new">500</span><span class="r-price-unit">円</span>
-    </div>
-    <div class="r-price-note">LINE登録者限定価格。初回のみ適用。</div>
-    <ul class="r-offer-list">
-      <li>足年齢測定</li>
-      <li>歩行分析</li>
-      <li>重心測定</li>
-      <li>姿勢分析</li>
-      <li>自律神経測定</li>
-    </ul>
-    <div class="r-offer-time">所要時間：約30分</div>
-    <a href="https://line.me/R/ti/p/@xat.0000130802.85a" class="cta-btn" id="lineCta" target="_blank" rel="noopener"><svg class="line-icon" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.16 4 4 10.27 4 18c0 5.5 3.44 10.3 8.6 13.04-.24.9-.93 3.27-1.07 3.78-.17.64.24.63.5.46.2-.13 3.24-2.14 4.56-3.01.84.12 1.7.18 2.58.18C28.84 32.45 36 26.18 36 18S28.84 4 20 4z"/></svg>LINEで友だち追加して測定予約する</a>
-    <button class="retry-btn" onclick="retryQuiz()">もう一度診断する</button>
+      <div class="ra-section-title">まずは身体の状態を知ることから</div>
+      <div class="ra-cause-lead">不調の多くは<br>「年齢のせい」ではなく</div>
+      <ul class="ra-cause-list">
+        <li>足元の乱れ</li>
+        <li>姿勢の乱れ</li>
+        <li>酸化</li>
+        <li>睡眠不足</li>
+        <li>自律神経の乱れ</li>
+      </ul>
+      <div class="ra-cause-sub">が重なって起こります。<br>まずは今の身体の状態を知り、<br>あなたに合った改善方法を見つけましょう。</div>
     </div>
   </div>
 
-  <footer><p>&copy; 2026 豊中愛整骨院 All Rights Reserved.</p></footer>
+  <!-- ⑤ オファー -->
+  <div class="ra-offer-section">
+    <div class="r-inner">
+      <div class="ra-offer-badge">初回限定</div>
+      <div class="ra-offer-title">身体年齢診断 ＋ 足圧測定<br>＋ 酸化チェック ＋ 姿勢分析</div>
+      <div class="ra-price-row">
+        <span class="ra-price-old">通常 5,500円</span>
+      </div>
+      <div class="ra-price-main">
+        <span class="ra-price-num">500</span><span class="ra-price-yen">円</span>
+      </div>
+      <div class="ra-price-note">LINE登録特典・初回のみ適用</div>
+      <a href="https://line.me/R/ti/p/@xat.0000130802.85a" class="cta-btn" target="_blank" rel="noopener">
+        <svg class="line-icon" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.16 4 4 10.27 4 18c0 5.5 3.44 10.3 8.6 13.04-.24.9-.93 3.27-1.07 3.78-.17.64.24.63.5.46.2-.13 3.24-2.14 4.56-3.01.84.12 1.7.18 2.58.18C28.84 32.45 36 26.18 36 18S28.84 4 20 4z"/></svg>
+        LINEで友だち追加して予約する
+      </a>
+      <button class="retry-btn" onclick="retryQuiz()">もう一度診断する</button>
+    </div>
+  </div>
+
+  <!-- ⑥ 院情報フッター -->
+  <footer class="ra-footer">
+    <div class="ra-clinic-name">豊中愛整骨院</div>
+    <div class="ra-clinic-sub">足と歩行の専門院</div>
+    <div class="ra-clinic-info">〒560-0021<br>大阪府豊中市本町7丁目1-31 エイコー本町ビル1F<br>TEL 06-6849-5611</div>
+    <div class="ra-copyright">&copy; 2026 豊中愛整骨院 All Rights Reserved.</div>
+  </footer>
+
 </div>
 
 <script>
+// ===== 年齢プルダウン生成 =====
+(function(){
+  const sel = document.getElementById('ageSelect');
+  for(let i = 0; i <= 100; i++){
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = i;
+    sel.appendChild(opt);
+  }
+})();
+
+let realAge = 0;
+
 // ===== 設問データ =====
 const QUESTIONS = [
   // 足の機能（各10点）
@@ -750,6 +1099,14 @@ function showScreen(id) {
 }
 
 function startQuiz() {
+  const sel = document.getElementById('ageSelect');
+  if(!sel.value) {
+    sel.style.borderColor = '#e8640e';
+    sel.focus();
+    return;
+  }
+  sel.style.borderColor = '';
+  realAge = parseInt(sel.value);
   currentIndex = 0;
   answers = new Array(TOTAL).fill(null);
   catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
@@ -841,61 +1198,95 @@ function calcResult() {
 
 function renderResult() {
   const total = Object.values(catScores).reduce((a, b) => a + b, 0);
-  document.getElementById('rScoreNum').textContent = total;
 
-  // スコアバー
-  setTimeout(() => {
-    document.getElementById('rBarFill').style.width = (total / 100 * 100) + '%';
-  }, 100);
+  // ===== 身体年齢算出 =====
+  // 100点 → 実年齢-15歳 / 0点 → 実年齢+20歳
+  const bodyAge = Math.round(realAge + 20 - (total / 100) * 35);
+  const diff = realAge - bodyAge; // 正=若い、負=負担
+  document.getElementById('raRealAge').textContent = realAge;
+  document.getElementById('raBodyAge').textContent = bodyAge;
 
-  // 判定
-  let grade, gradeClass, title, body;
-  if (total >= 90) {
-    grade = '健康優等生';        gradeClass = '';
-    title = 'あなたの足は健康資産です';
-    body  = '足指・姿勢・自律神経のバランスが安定しています。今の生活習慣を継続することで、将来にわたって健やかな身体を維持できます。';
-  } else if (total >= 70) {
-    grade = '要メンテナンス';    gradeClass = '';
-    title = 'まだ間に合います';
-    body  = '一部の機能低下が始まっているサインがあります。今のうちにケアを始めることで、将来の不調予防が期待できます。';
-  } else if (total >= 50) {
-    grade = '不調予備軍';        gradeClass = 'warn';
-    title = '身体の土台が揺らいでいます';
-    body  = '肩こり・腰痛・疲労感・睡眠の質低下が起きやすい状態です。身体の土台である足から見直すことが大切です。';
-  } else if (total >= 30) {
-    grade = '身体の土台崩壊注意'; gradeClass = 'warn';
-    title = '老化加速ゾーンに入っています';
-    body  = '足・姿勢・自律神経の乱れが複合的に進んでいます。身体の使い方と生活習慣を早急に見直すタイミングです。';
+  let msgHtml;
+  if(diff > 0) {
+    msgHtml = `あなたの身体は現在、実年齢と比べて<br><span class="young">約${diff}歳 若い状態</span> です`;
+  } else if(diff < 0) {
+    msgHtml = `あなたの身体は現在、実年齢と比べて<br><span class="old">約${Math.abs(diff)}歳 負担がかかっている状態</span> です`;
   } else {
-    grade = '老化加速ゾーン';    gradeClass = 'danger';
-    title = '専門的なサポートが必要な状態です';
-    body  = '足元のバランス低下や生活習慣の影響が強く出ている可能性があります。一度専門的な検査と測定をおすすめします。';
+    msgHtml = `あなたの身体年齢は<br><span class="young">実年齢とほぼ同じ状態</span> です`;
+  }
+  document.getElementById('raAgeMessage').innerHTML = msgHtml;
+
+  // ===== 4リスク判定 =====
+  function riskLevel(score, max) {
+    const pct = score / max;
+    if(pct >= 0.67) return 'low';
+    if(pct >= 0.34) return 'middle';
+    return 'high';
+  }
+  function riskLabel(level) {
+    return { low:'低', middle:'中', high:'高' }[level];
   }
 
-  const gEl = document.getElementById('rGrade');
-  gEl.textContent = grade;
-  gEl.className = 'r-grade-badge' + (gradeClass ? ' ' + gradeClass : '');
-  document.getElementById('rTitle').textContent = title;
-  document.getElementById('rBody').textContent = body;
+  // 酸化リスク: nutrition + aging (max=20)
+  const oxidScore  = catScores.nutrition + catScores.aging;
+  const oxidLevel  = riskLevel(oxidScore, 20);
+  // 姿勢リスク: foot + posture (max=60)
+  const postScore  = catScores.foot + catScores.posture;
+  const postLevel  = riskLevel(postScore, 60);
+  // 睡眠リスク: nerve Q9,Q10 (朝スッキリ・夜ぐっすり) → インデックス8,9
+  const sleepScore = (answers[8]?5:0) + (answers[9]?5:0);
+  const sleepLevel = riskLevel(sleepScore, 10);
+  // 自律神経リスク: nerve Q11,Q12 (イライラ・肩こり) → インデックス10,11
+  const nerveScore = (answers[10]?5:0) + (answers[11]?5:0);
+  const nerveLevel = riskLevel(nerveScore, 10);
 
-  // カテゴリ別
-  const catCfg = [
-    { cat:'foot',      bar:'bFoot',      pts:'ptsFoot',      max:40 },
-    { cat:'posture',   bar:'bPosture',   pts:'ptsPosture',   max:20 },
-    { cat:'nerve',     bar:'bNerve',     pts:'ptsNerve',     max:20 },
-    { cat:'nutrition', bar:'bNutrition', pts:'ptsNutrition', max:10 },
-    { cat:'aging',     bar:'bAging',     pts:'ptsAging',     max:10 },
+  const risks = [
+    {
+      num:'①', name:'酸化リスク', level: oxidLevel,
+      desc:'身体のサビつき傾向です。',
+      symptoms:['疲れが抜けにくい','朝スッキリ起きられない','肌や髪の老化が気になる','慢性的な不調が続く'],
+      footer:'このような方は酸化リスクが高い傾向があります。'
+    },
+    {
+      num:'②', name:'姿勢リスク', level: postLevel,
+      desc:'身体の土台である足元や姿勢の乱れです。',
+      symptoms:['肩こり','腰痛','膝痛','疲れやすい','転びやすい'],
+      footer:'このような方は姿勢リスクが高い傾向があります。'
+    },
+    {
+      num:'③', name:'睡眠リスク', level: sleepLevel,
+      desc:'回復力に関係する睡眠の状態です。',
+      symptoms:['眠りが浅い','途中で目が覚める','朝から疲れている','日中眠くなる'],
+      footer:'このような方は睡眠リスクが高い傾向があります。'
+    },
+    {
+      num:'④', name:'自律神経リスク', level: nerveLevel,
+      desc:'自律神経のバランスを示します。',
+      symptoms:['イライラしやすい','気圧に左右される','頭痛がある','冷えやのぼせがある'],
+      footer:'このような方は自律神経のバランスが乱れている可能性があります。'
+    }
   ];
-  catCfg.forEach(c => {
-    const s = catScores[c.cat];
-    setTimeout(() => {
-      document.getElementById(c.bar).style.width = (s / c.max * 100) + '%';
-    }, 300);
-    document.getElementById(c.pts).textContent = s + '/' + c.max;
-  });
+
+  const riskContainer = document.getElementById('riskCards');
+  riskContainer.innerHTML = risks.map(r => `
+    <div class="risk-card">
+      <div class="risk-card-header">
+        <div class="risk-card-name">${r.num} ${r.name}</div>
+        <div class="risk-badge ${r.level}">${riskLabel(r.level)}</div>
+      </div>
+      <div class="risk-divider"></div>
+      <div class="risk-desc">${r.desc}</div>
+      <ul class="risk-symptoms">
+        ${r.symptoms.map(s => `<li${r.level==='high' ? ' class="active"' : ''}>${s}</li>`).join('')}
+      </ul>
+      <div class="risk-card-footer">${r.footer}</div>
+    </div>
+  `).join('');
 }
 
 function retryQuiz() {
+  realAge = 0;
+  document.getElementById('ageSelect').value = '';
   showScreen('screen-top');
 }
 </script>
