@@ -111,23 +111,32 @@ body {
   margin-top: 14px;
 }
 
-/* ===== QUESTION PAGE ===== */
+/* ===== QUESTION PAGE（カテゴリ遷移形式） ===== */
 #screen-question {
   background: var(--bg);
   flex-direction: column;
 }
 
-/* ヘッダー */
+/* 固定ヘッダー */
 .q-header {
-  padding: 16px 20px 12px;
+  padding: 14px 20px 14px;
   background: var(--bg);
   position: sticky;
   top: 0;
   z-index: 10;
+  border-bottom: 1px solid var(--borderCard);
 }
 .q-header-inner {
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
+}
+
+/* 上段：戻るボタン＋ステップ番号 */
+.q-header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 .q-back {
   background: var(--paper);
@@ -138,167 +147,197 @@ body {
   color: var(--brandDark);
   font-family: 'Noto Sans JP', sans-serif;
   cursor: pointer;
-  padding: 7px 16px 7px 12px;
+  padding: 6px 12px 6px 9px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 14px;
+  gap: 4px;
+  flex-shrink: 0;
   transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
 }
 .q-back:hover { background: var(--brandLight); border-color: var(--brand); }
-.q-back svg { width: 14px; height: 14px; }
+.q-back svg { width: 13px; height: 13px; }
 
-/* プログレスバー */
-.q-progress-row {
+/* ステップドット */
+.q-steps {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.q-step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  border: 2px solid var(--borderCard);
+  color: var(--gray);
+  background: var(--paper);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.q-step-dot.done {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--text);
+}
+.q-step-dot.active {
+  background: var(--brandDark);
+  border-color: var(--brandDark);
+  color: #fff;
+  transform: scale(1.15);
+}
+.q-step-line {
+  flex: 1; height: 2px;
+  background: var(--borderCard);
+  border-radius: 1px;
+  min-width: 8px;
+}
+
+/* 下段：カテゴリ名＋スコア */
+.q-header-bottom {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 8px;
 }
-.q-progress-track {
-  flex: 1;
-  height: 6px;
-  background: var(--borderCard);
-  border-radius: 3px;
-  overflow: hidden;
+.q-cat-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--text);
 }
-.q-progress-fill {
-  height: 100%;
-  background: var(--brand);
-  border-radius: 3px;
-  transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+.q-score-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
-.q-progress-text {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--brandDark);
-  min-width: 40px;
-  text-align: right;
+.q-score-label { font-size: 11px; color: var(--gray); }
+.q-score-num {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px; font-weight: 600;
+  color: var(--brandDark); line-height: 1;
+  transition: transform 0.15s;
 }
+.q-score-unit { font-size: 11px; color: var(--gray); }
 
-/* 質問本体 */
-.q-body {
-  flex: 1;
-  padding: 28px 20px 40px;
-  max-width: 480px;
+/* チェックシート本体 */
+.qs-body {
+  padding: 24px 20px 48px;
+  max-width: 520px;
   margin: 0 auto;
   width: 100%;
 }
-.q-category-label {
-  display: inline-block;
-  background: var(--brandLight);
-  color: var(--brandDark);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 12px;
-  border-radius: 20px;
-  letter-spacing: 0.06em;
-  margin-bottom: 14px;
+
+/* カテゴリセクション（1枚） */
+.qs-section {
+  background: var(--paper);
+  border-radius: 18px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(45,58,26,0.07);
 }
-.q-num-badge {
-  display: inline-flex;
+.qs-section-header {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--brand);
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 14px;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: var(--brandDark);
+  gap: 8px;
 }
-.q-text {
+.qs-section-title {
   font-family: 'Noto Serif JP', serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.5;
-  margin-bottom: 8px;
+  font-size: 15px; font-weight: 600;
+  color: #fff;
 }
-.q-subtext {
-  font-size: 13px;
-  color: var(--gray);
-  margin-bottom: 32px;
-  line-height: 1.7;
+.qs-section-score {
+  font-size: 12px; color: rgba(255,255,255,0.75);
+  white-space: nowrap; font-weight: 700;
+}
+.qs-section-bar-wrap {
+  height: 3px; background: rgba(255,255,255,0.2);
+}
+.qs-section-bar-fill {
+  height: 100%; background: var(--brand);
+  transition: width 0.3s ease;
 }
 
-/* 選択肢カード */
-.q-choices {
+/* チェックアイテム */
+.qs-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 18px;
+  border-bottom: 1px solid var(--borderCard);
+  cursor: pointer;
+  transition: background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.qs-item:last-child { border-bottom: none; }
+.qs-item:active { background: var(--brandLight); }
+.qs-item.checked { background: var(--brandLight); }
+
+.qs-checkbox {
+  width: 28px; height: 28px; min-width: 28px;
+  border-radius: 8px;
+  border: 2px solid var(--borderCard);
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.qs-item.checked .qs-checkbox {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+.qs-checkbox svg {
+  width: 14px; height: 14px;
+  stroke: var(--text);
+  opacity: 0; transform: scale(0.5);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.qs-item.checked .qs-checkbox svg {
+  opacity: 1; transform: scale(1);
+}
+.qs-item-text {
+  flex: 1;
+  font-size: 16px; font-weight: 500;
+  color: var(--text); line-height: 1.5;
+}
+.qs-item.checked .qs-item-text { color: var(--brandDark); font-weight: 700; }
+.qs-item-point {
+  font-size: 12px; font-weight: 700;
+  color: var(--brandDark);
+  background: var(--brandLight);
+  padding: 3px 10px; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0;
+  opacity: 0.5; transition: opacity 0.15s;
+}
+.qs-item.checked .qs-item-point { opacity: 1; }
+
+/* ナビゲーションボタン */
+.qs-nav {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
-.choice-card {
-  background: var(--paper);
-  border: 1.5px solid var(--borderCard);
-  border-radius: 16px;
-  padding: 20px 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: border-color 0.15s, background 0.15s, transform 0.1s;
-  -webkit-tap-highlight-color: transparent;
-}
-.choice-card.yes-card:hover {
-  border-color: var(--brand);
-  background: var(--brandLight);
-}
-.choice-card.no-card:hover {
-  border-color: var(--borderCard);
-  background: #f5f5f5;
-}
-.choice-card:active {
-  transform: scale(0.98);
-}
-.choice-card.selected-yes {
-  border-color: var(--brand);
-  background: var(--brandLight);
-}
-.choice-card.selected-no {
-  border-color: var(--borderCard);
-  background: #f8f8f8;
-}
-
-.choice-circle {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1.5px solid var(--borderCard);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gray);
-  letter-spacing: 0.02em;
-  transition: all 0.15s;
-}
-.choice-card.selected-yes .choice-circle {
+.qs-next-btn {
+  display: block; width: 100%;
   background: var(--brand);
-  border-color: var(--brand);
   color: var(--text);
+  font-size: 17px; font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 18px 24px;
+  border-radius: 14px; border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, transform 0.1s;
 }
-.choice-card.selected-no .choice-circle {
-  background: var(--borderCard);
-  border-color: var(--borderCard);
-  color: var(--gray);
-}
-
-.choice-text {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.5;
-}
-.choice-point {
-  margin-left: auto;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--brandDark);
-  white-space: nowrap;
+.qs-next-btn:hover { background: var(--brandDark); color: #fff; }
+.qs-next-btn:active { transform: scale(0.98); }
+.qs-nav-note {
+  font-size: 12px; color: var(--gray);
+  text-align: center; line-height: 1.7;
 }
 
 /* ===== RESULT PAGE ===== */
@@ -780,8 +819,41 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   display: inline-block; margin-bottom: 24px;
 }
 
-/* ⑥ 院情報フッター */
-.ra-footer {
+/* ランク判定ブロック */
+.ra-rank-section {
+  background: var(--paper); padding: 32px 20px;
+  border-bottom: 1px solid var(--borderCard);
+}
+.ra-rank-card {
+  border-radius: 16px; padding: 20px;
+  border: 2px solid var(--borderCard);
+}
+.ra-rank-badge-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.ra-rank-score {
+  font-family: 'Noto Serif JP', serif; font-size: 28px; font-weight: 600;
+  color: var(--brand); line-height: 1;
+}
+.ra-rank-score-unit { font-size: 14px; color: var(--gray); margin-left: 2px; }
+.ra-rank-label {
+  font-size: 14px; font-weight: 700; padding: 6px 18px;
+  border-radius: 20px; letter-spacing: 0.04em;
+}
+.ra-rank-label.rank-s  { background: var(--brand);  color: var(--text); }
+.ra-rank-label.rank-a  { background: #4caf8a;        color: #fff; }
+.ra-rank-label.rank-b  { background: var(--accent);  color: #fff; }
+.ra-rank-label.rank-c  { background: #c0392b;        color: #fff; }
+.ra-rank-label.rank-d  { background: #7b1818;        color: #fff; }
+.ra-rank-title {
+  font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600;
+  color: var(--text); margin-bottom: 8px; line-height: 1.5;
+}
+.ra-rank-body {
+  font-size: 14px; color: var(--gray); line-height: 1.9;
+}
+
+
   background: #1a2510; padding: 32px 20px 40px; text-align: center;
 }
 .ra-clinic-name {
@@ -801,20 +873,21 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   .top-subtitle { font-size: 13px; }
   .start-btn { font-size: 16px; padding: 16px 20px; }
 
-  .q-header { padding: 10px 16px 8px; }
-  .q-back { font-size: 12px; padding: 6px 12px 6px 10px; }
-  .q-progress-text { font-size: 12px; }
+  .q-header { padding: 10px 14px 10px; }
+  .q-back { font-size: 12px; padding: 5px 10px 5px 7px; }
+  .q-step-dot { width: 24px; height: 24px; font-size: 10px; }
+  .q-score-num { font-size: 17px; }
+  .q-score-label, .q-score-unit { font-size: 10px; }
+  .q-cat-name { font-size: 12px; }
 
-  .q-body { padding: 22px 16px 32px; }
-  .q-text { font-size: 20px; }
-  .q-subtext { font-size: 12px; margin-bottom: 24px; }
-  .q-category-label { font-size: 10px; }
-  .q-num-badge { width: 32px; height: 32px; font-size: 12px; }
-
-  .choice-card { padding: 16px 14px; gap: 12px; border-radius: 14px; }
-  .choice-circle { width: 34px; height: 34px; min-width: 34px; font-size: 10px; }
-  .choice-text { font-size: 15px; }
-  .choice-point { font-size: 12px; }
+  .qs-body { padding: 16px 14px 40px; }
+  .qs-section-header { padding: 13px 14px; }
+  .qs-section-title { font-size: 13px; }
+  .qs-item { padding: 15px 14px; gap: 10px; }
+  .qs-item-text { font-size: 15px; }
+  .qs-item-point { font-size: 11px; padding: 2px 8px; }
+  .qs-checkbox { width: 26px; height: 26px; min-width: 26px; }
+  .qs-next-btn { font-size: 15px; padding: 16px 20px; border-radius: 12px; }
 
   .r-header { padding: 36px 20px 28px; }
   .r-score-num { font-size: 64px; }
@@ -844,9 +917,9 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 <!-- ========== TOP ========== -->
 <div class="screen active" id="screen-top">
   <div style="width:100%;max-width:520px;margin:0 auto;">
-    <div class="top-badge">それって老化かも…？</div>
+    <div class="top-badge">それって老化かも…⁉️</div>
     <h1 class="top-title">足からわかる<br>カラダ年齢テスト</h1>
-    <p class="top-subtitle">足・姿勢・自律神経・栄養・老化リスク<br>5分野・22項目で診断します</p>
+    <p class="top-subtitle">足・姿勢・歩行・栄養・自律神経<br>5分野・22項目で診断します</p>
     <div class="top-cats">
       <span class="top-cat">足の機能</span>
       <span class="top-cat">姿勢・歩行</span>
@@ -868,26 +941,35 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   </div>
 </div>
 
-<!-- ========== QUESTION ========== -->
+<!-- ========== QUESTION（カテゴリ遷移） ========== -->
 <div class="screen" id="screen-question">
   <div class="q-header">
     <div class="q-header-inner">
-      <button class="q-back" onclick="goBack()">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 3L5 8l5 5"/>
-        </svg>
-        前の問題に戻る
-      </button>
-      <div class="q-progress-row">
-        <div class="q-progress-track">
-          <div class="q-progress-fill" id="progressFill"></div>
+      <!-- 上段：戻る＋ステップドット -->
+      <div class="q-header-top">
+        <button class="q-back" onclick="goBack()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 3L5 8l5 5"/>
+          </svg>
+          戻る
+        </button>
+        <div class="q-steps" id="qSteps">
+          <!-- JS で描画 -->
         </div>
-        <div class="q-progress-text" id="progressText">1 / 19</div>
+      </div>
+      <!-- 下段：カテゴリ名＋スコア -->
+      <div class="q-header-bottom">
+        <div class="q-cat-name" id="qCatName">---</div>
+        <div class="q-score-wrap">
+          <span class="q-score-label">合計</span>
+          <span class="q-score-num" id="liveScore">0</span>
+          <span class="q-score-unit">/ 100点</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="q-body" id="qBody">
+  <div class="qs-body" id="qsBody">
     <!-- JS で描画 -->
   </div>
 </div>
@@ -918,7 +1000,22 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
     </div>
   </div>
 
-  <!-- ② 4つのリスク判定 -->
+  <!-- ランク判定 -->
+  <div class="ra-rank-section">
+    <div class="r-inner">
+      <div class="ra-section-title">総合判定</div>
+      <div class="ra-rank-card" id="rankCard">
+        <div class="ra-rank-badge-row">
+          <div><span class="ra-rank-score" id="rankScore">--</span><span class="ra-rank-score-unit">点</span></div>
+          <div class="ra-rank-label" id="rankLabel">---</div>
+        </div>
+        <div class="ra-rank-title" id="rankTitle">---</div>
+        <div class="ra-rank-body" id="rankBody">---</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 身体年齢が上がる主な原因（リスク判定）-->
   <div class="ra-risk-section">
     <div class="r-inner">
       <div class="ra-section-title">身体年齢が上がる主な原因</div>
@@ -1052,45 +1149,48 @@ let realAge = 0;
 // ===== 設問データ =====
 const QUESTIONS = [
   // 足の機能（各10点）
-  { id:1,  cat:'foot',      catLabel:'足の機能',   point:10, text:'足指でグーができる',         sub:'足の指をぎゅっと曲げられますか？' },
-  { id:2,  cat:'foot',      catLabel:'足の機能',   point:10, text:'足指でパーができる',         sub:'足の指を大きく広げられますか？' },
-  { id:3,  cat:'foot',      catLabel:'足の機能',   point:10, text:'片足立ちを30秒以上できる',   sub:'壁などに触れずに立ち続けられますか？' },
-  { id:4,  cat:'foot',      catLabel:'足の機能',   point:10, text:'靴底が左右均等に減る',       sub:'靴の裏を確認してみてください。' },
+  { id:1,  cat:'foot',      catLabel:'足の機能',   point:10, text:'足指でグーパーができる',      sub:'' },
+  { id:2,  cat:'foot',      catLabel:'足の機能',   point:10, text:'足指でチョキができる',         sub:'' },
+  { id:3,  cat:'foot',      catLabel:'足の機能',   point:10, text:'片足立ち30秒以上できる',       sub:'' },
+  { id:4,  cat:'foot',      catLabel:'足の機能',   point:10, text:'靴底が左右同じように減ってる', sub:'' },
   // 姿勢・歩行（各5点）
-  { id:5,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'猫背と言われない',           sub:'家族や友人から指摘されたことはありますか？' },
-  { id:6,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'歩くと疲れにくい',           sub:'少し歩いただけで足が重くなりませんか？' },
-  { id:7,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'階段が苦にならない',         sub:'階段を避けてエレベーターを選ぶことはありますか？' },
-  { id:8,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'転びそうになることが少ない', sub:'段差につまずいたり、ふらつくことはありますか？' },
+  { id:5,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'普段から姿勢を意識できてる',  sub:'' },
+  { id:6,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'毎日30分以上は歩いてる',       sub:'' },
+  { id:7,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'エレベーターより階段を使う',   sub:'' },
+  { id:8,  cat:'posture',   catLabel:'姿勢・歩行', point:5,  text:'歩いてて体のふらつきがない',   sub:'' },
   // 自律神経（各5点）
-  { id:9,  cat:'nerve',     catLabel:'自律神経',   point:5,  text:'朝スッキリ起きられる',       sub:'目覚めたとき、身体が軽い状態ですか？' },
-  { id:10, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'夜ぐっすり眠れる',           sub:'途中覚醒や寝つきの悪さはありますか？' },
-  { id:11, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'イライラしにくい',           sub:'感情の波が激しくなることはありますか？' },
-  { id:12, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'肩こり・首こりが少ない',     sub:'慢性的なこりや張りを感じていますか？' },
+  { id:9,  cat:'nerve',     catLabel:'自律神経',   point:5,  text:'朝スッキリ起きられる',         sub:'' },
+  { id:10, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'夜ぐっすり眠れる',             sub:'' },
+  { id:11, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'イライラしない',               sub:'' },
+  { id:12, cat:'nerve',     catLabel:'自律神経',   point:5,  text:'肩こり・首こりが少ない',       sub:'' },
   // 栄養状態（各2点）
-  { id:13, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'甘い物を毎日欲しない',       sub:'毎日甘い物が食べたくなりますか？' },
-  { id:14, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'タンパク質を毎日食べる',     sub:'肉・魚・卵・豆類を毎日摂れていますか？' },
-  { id:15, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'水を1.5L以上飲む',          sub:'1日の水分摂取量を意識していますか？' },
-  { id:16, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'便通が良い',                 sub:'毎日スムーズな排便がありますか？' },
-  { id:17, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'疲れが翌日に残りにくい',     sub:'前日の疲労を持ち越すことはありますか？' },
+  { id:13, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'甘い物はめったに食べない',     sub:'' },
+  { id:14, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'毎日タンパク質を食べる',       sub:'' },
+  { id:15, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'水を1.5L以上飲む',             sub:'' },
+  { id:16, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'便通が良い',                   sub:'' },
+  { id:17, cat:'nutrition', catLabel:'栄養状態',   point:2,  text:'疲れが翌日に残らない',         sub:'' },
   // 老化リスク（各2点）
-  { id:18, cat:'aging',     catLabel:'老化リスク', point:2,  text:'足がつりにくい',             sub:'就寝中や運動中に足がつることはありますか？' },
-  { id:19, cat:'aging',     catLabel:'老化リスク', point:2,  text:'むくみが少ない',             sub:'夕方に足がむくんでいることはありますか？' },
-  // ※残りの aging 項目は点数に含むが、19問で収める
+  { id:18, cat:'aging',     catLabel:'老化リスク', point:2,  text:'足がつらない',                 sub:'' },
+  { id:19, cat:'aging',     catLabel:'老化リスク', point:2,  text:'むくみが脚に出ていない',       sub:'' },
+  { id:20, cat:'aging',     catLabel:'老化リスク', point:2,  text:'冷え性ではない',               sub:'' },
+  { id:21, cat:'aging',     catLabel:'老化リスク', point:2,  text:'肌ツヤが良い',                 sub:'' },
+  { id:22, cat:'aging',     catLabel:'老化リスク', point:2,  text:'毎日元気に起きれる',           sub:'' },
 ];
-
-// 実際には全19問を定義（元の20項目から重複なし）
-// 老化リスク残り3項目を追加
-QUESTIONS.push(
-  { id:20, cat:'aging', catLabel:'老化リスク', point:2, text:'冷え性ではない',   sub:'手足の冷えを慢性的に感じていますか？' },
-  { id:21, cat:'aging', catLabel:'老化リスク', point:2, text:'肌ツヤが良い',     sub:'最近、肌の乾燥やくすみが気になりますか？' },
-  { id:22, cat:'aging', catLabel:'老化リスク', point:2, text:'疲れやすくない',   sub:'以前より体力が落ちたと感じることはありますか？' }
-);
-// 全22項目 → ただし合計100点になるよう設問をそのまま使う（foot×4=40, posture×4=20, nerve×4=20, nutrition×5=10, aging×5=10 = 100点）
+// 全22項目（foot×4=40, posture×4=20, nerve×4=20, nutrition×5=10, aging×5=10 = 100点）
 
 const TOTAL = QUESTIONS.length;
-let currentIndex = 0;
-let answers = new Array(TOTAL).fill(null); // null=未回答, true=はい, false=いいえ
+let answers = new Array(TOTAL).fill(false);
 let catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
+let currentCatIndex = 0; // 0〜4
+
+// カテゴリ定義
+const CATEGORIES = [
+  { key:'foot',      label:'① 足の機能',   max:40 },
+  { key:'posture',   label:'② 姿勢・歩行', max:20 },
+  { key:'nerve',     label:'③ 自律神経',   max:20 },
+  { key:'nutrition', label:'④ 栄養状態',   max:10 },
+  { key:'aging',     label:'⑤ 老化リスク', max:10 },
+];
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1107,92 +1207,140 @@ function startQuiz() {
   }
   sel.style.borderColor = '';
   realAge = parseInt(sel.value);
-  currentIndex = 0;
-  answers = new Array(TOTAL).fill(null);
+  answers = new Array(TOTAL).fill(false);
   catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
+  currentCatIndex = 0;
   showScreen('screen-question');
-  renderQuestion();
+  renderCategory();
 }
 
-function renderQuestion() {
-  const q = QUESTIONS[currentIndex];
-  const pct = (currentIndex / TOTAL) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressText').textContent = (currentIndex + 1) + ' / ' + TOTAL;
+// ステップドット描画
+function renderSteps() {
+  const stepsEl = document.getElementById('qSteps');
+  let html = '';
+  CATEGORIES.forEach((cat, i) => {
+    if (i > 0) html += '<div class="q-step-line"></div>';
+    let cls = '';
+    if (i < currentCatIndex) cls = 'done';
+    else if (i === currentCatIndex) cls = 'active';
+    html += `<div class="q-step-dot ${cls}">${i + 1}</div>`;
+  });
+  stepsEl.innerHTML = html;
+}
 
-  const body = document.getElementById('qBody');
-  // フェードのためにクラスを付け直す
-  body.style.animation = 'none';
-  body.offsetHeight; // reflow
-  body.style.animation = '';
+// 現在カテゴリのチェックリスト描画
+function renderCategory() {
+  const cat = CATEGORIES[currentCatIndex];
+  const items = QUESTIONS.filter(q => q.cat === cat.key);
+  const isLast = currentCatIndex === CATEGORIES.length - 1;
 
-  body.innerHTML = `
-    <div class="q-category-label">${q.catLabel}</div>
-    <div class="q-num-badge">Q${q.id}</div>
-    <div class="q-text">${q.text}</div>
-    <div class="q-subtext">${q.sub}</div>
-    <div class="q-choices">
-      <div class="choice-card yes-card" onclick="selectAnswer(true)" id="choiceYes">
-        <div class="choice-circle">YES</div>
-        <div class="choice-text">はい・当てはまる</div>
-        <div class="choice-point">+${q.point}点</div>
+  // ヘッダー更新
+  renderSteps();
+  document.getElementById('qCatName').textContent = cat.label + '（' + cat.max + '点）';
+  updateLiveScore();
+
+  // カテゴリスコア計算
+  const catScore = items.reduce((sum, q) => {
+    const idx = QUESTIONS.indexOf(q);
+    return sum + (answers[idx] ? q.point : 0);
+  }, 0);
+  const catPct = Math.round(catScore / cat.max * 100);
+
+  const itemsHtml = items.map(q => {
+    const idx = QUESTIONS.indexOf(q);
+    const checked = answers[idx] ? 'checked' : '';
+    return `
+      <div class="qs-item ${checked}" id="item-${idx}" onclick="toggleItem(${idx})">
+        <div class="qs-checkbox">
+          <svg viewBox="0 0 14 14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2,7 6,11 12,3"/>
+          </svg>
+        </div>
+        <div class="qs-item-text">${q.text}</div>
+        <div class="qs-item-point">+${q.point}点</div>
+      </div>`;
+  }).join('');
+
+  const nextLabel = isLast ? '診断結果を見る →' : '次へ　' + CATEGORIES[currentCatIndex + 1].label + ' →';
+  const noteText = isLast
+    ? 'チェックなしの項目は「当てはまらない」として集計されます'
+    : 'チェックなしの項目は「当てはまらない」として次へ進みます';
+
+  document.getElementById('qsBody').innerHTML = `
+    <div class="qs-section">
+      <div class="qs-section-header">
+        <div class="qs-section-title">${cat.label}（${cat.max}点）</div>
+        <div class="qs-section-score" id="secScore">${catScore} / ${cat.max}点</div>
       </div>
-      <div class="choice-card no-card" onclick="selectAnswer(false)" id="choiceNo">
-        <div class="choice-circle">NO</div>
-        <div class="choice-text">いいえ・当てはまらない</div>
-        <div class="choice-point" style="color:var(--gray);">0点</div>
+      <div class="qs-section-bar-wrap">
+        <div class="qs-section-bar-fill" id="secBar" style="width:${catPct}%"></div>
       </div>
+      ${itemsHtml}
+    </div>
+    <div class="qs-nav">
+      <button class="qs-next-btn" onclick="goNext()">${nextLabel}</button>
+      <p class="qs-nav-note">${noteText}</p>
     </div>
   `;
 }
 
-function selectAnswer(isYes) {
-  const q = QUESTIONS[currentIndex];
+function toggleItem(idx) {
+  answers[idx] = !answers[idx];
+  const item = document.getElementById('item-' + idx);
+  item.classList.toggle('checked', answers[idx]);
+  updateCatScore();
+  updateLiveScore();
+}
 
-  // 視覚フィードバック
-  const yCard = document.getElementById('choiceYes');
-  const nCard = document.getElementById('choiceNo');
-  if (isYes) {
-    yCard.classList.add('selected-yes');
-  } else {
-    nCard.classList.add('selected-no');
+function updateCatScore() {
+  const cat = CATEGORIES[currentCatIndex];
+  const items = QUESTIONS.filter(q => q.cat === cat.key);
+  const score = items.reduce((sum, q) => {
+    const idx = QUESTIONS.indexOf(q);
+    return sum + (answers[idx] ? q.point : 0);
+  }, 0);
+  const el = document.getElementById('secScore');
+  const bar = document.getElementById('secBar');
+  if (el) el.textContent = score + ' / ' + cat.max + '点';
+  if (bar) bar.style.width = (score / cat.max * 100) + '%';
+}
+
+function updateLiveScore() {
+  const total = QUESTIONS.reduce((sum, q, i) => sum + (answers[i] ? q.point : 0), 0);
+  const el = document.getElementById('liveScore');
+  if (el) {
+    el.textContent = total;
+    el.style.transform = 'scale(1.2)';
+    setTimeout(() => { el.style.transform = 'scale(1)'; }, 150);
   }
+}
 
-  // スコア記録
-  answers[currentIndex] = isYes;
-
-  // 少し待ってから遷移（0.22秒 = タップの反応を見せる）
-  setTimeout(() => {
-    currentIndex++;
-    if (currentIndex >= TOTAL) {
-      calcResult();
-      showScreen('screen-result');
-      renderResult();
-    } else {
-      renderQuestion();
-    }
-  }, 220);
+function goNext() {
+  if (currentCatIndex < CATEGORIES.length - 1) {
+    currentCatIndex++;
+    window.scrollTo(0, 0);
+    renderCategory();
+  } else {
+    calcResult();
+    showScreen('screen-result');
+    renderResult();
+  }
 }
 
 function goBack() {
-  if (currentIndex === 0) {
+  if (currentCatIndex === 0) {
     showScreen('screen-top');
   } else {
-    // 直前の回答を取り消す
-    const prev = QUESTIONS[currentIndex - 1];
-    if (answers[currentIndex - 1] === true) {
-      catScores[prev.cat] -= prev.point;
-    }
-    answers[currentIndex - 1] = null;
-    currentIndex--;
-    renderQuestion();
+    currentCatIndex--;
+    window.scrollTo(0, 0);
+    renderCategory();
   }
 }
 
 function calcResult() {
   catScores = { foot:0, posture:0, nerve:0, nutrition:0, aging:0 };
   QUESTIONS.forEach((q, i) => {
-    if (answers[i] === true) catScores[q.cat] += q.point;
+    if (answers[i]) catScores[q.cat] += q.point;
   });
 }
 
@@ -1205,6 +1353,36 @@ function renderResult() {
   const diff = realAge - bodyAge; // 正=若い、負=負担
   document.getElementById('raRealAge').textContent = realAge;
   document.getElementById('raBodyAge').textContent = bodyAge;
+
+  // ===== ランク判定 =====
+  let rankClass, rankLabel, rankTitle, rankBody;
+  if (total >= 90) {
+    rankClass = 'rank-s'; rankLabel = '健康優等生';
+    rankTitle = 'あなたの足は健康資産です';
+    rankBody  = '足指・姿勢・自律神経が安定しています。今の習慣を継続しましょう。';
+  } else if (total >= 70) {
+    rankClass = 'rank-a'; rankLabel = '要メンテナンス';
+    rankTitle = 'まだ間に合います';
+    rankBody  = '足の機能低下が始まっています。今のうちにケアする事で将来の不調予防が期待できます。';
+  } else if (total >= 50) {
+    rankClass = 'rank-b'; rankLabel = '不調予備軍';
+    rankTitle = '不調予備軍';
+    rankBody  = '肩こり・腰痛・疲労感・睡眠の質低下が起きやすい状態です。身体の土台である足から見直しましょう。';
+  } else if (total >= 30) {
+    rankClass = 'rank-c'; rankLabel = '身体の土台崩壊注意';
+    rankTitle = '老化加速ゾーン';
+    rankBody  = '足・姿勢・自律神経の乱れが進んでいます。身体の使い方を見直すタイミングです。';
+  } else {
+    rankClass = 'rank-d'; rankLabel = '老化加速ゾーン';
+    rankTitle = '要検査';
+    rankBody  = '足元のバランス低下や生活習慣の影響が強く出ている可能性があります。一度専門的な検査をおすすめします。';
+  }
+  document.getElementById('rankScore').textContent = total;
+  const lEl = document.getElementById('rankLabel');
+  lEl.textContent = rankLabel;
+  lEl.className = 'ra-rank-label ' + rankClass;
+  document.getElementById('rankTitle').textContent = rankTitle;
+  document.getElementById('rankBody').textContent  = rankBody;
 
   let msgHtml;
   if(diff > 0) {
@@ -1286,6 +1464,8 @@ function renderResult() {
 
 function retryQuiz() {
   realAge = 0;
+  currentCatIndex = 0;
+  answers = new Array(TOTAL).fill(false);
   document.getElementById('ageSelect').value = '';
   showScreen('screen-top');
 }
