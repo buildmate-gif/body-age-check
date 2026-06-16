@@ -787,36 +787,208 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 
 /* ⑤ オファー */
 .ra-offer-section {
-  background: var(--paper); padding: 36px 20px 40px;
+  background:
+    radial-gradient(circle at top right, rgba(232,100,14,0.14), transparent 34%),
+    linear-gradient(180deg, #f4f8e7 0%, #edf5d7 100%);
+  padding: 40px 20px 44px;
   border-top: 4px solid var(--brand);
 }
+.ra-offer-shell {
+  position: relative;
+  background: linear-gradient(180deg, #fffef8 0%, #ffffff 100%);
+  border: 2px solid #f2cf6f;
+  border-radius: 28px;
+  padding: 52px 20px 24px;
+  box-shadow:
+    0 20px 44px rgba(45,58,26,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  overflow: visible;
+}
+.ra-offer-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(242,207,111,0.26) 0%, transparent 32%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 13px,
+      rgba(94,138,18,0.035) 13px 14px
+    );
+  pointer-events: none;
+}
+.ra-offer-kicker {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--brandDark);
+  margin-bottom: 14px;
+}
 .ra-offer-badge {
-  display: inline-block; background: var(--accent); color: #fff;
-  font-size: 11px; font-weight: 700; padding: 4px 14px;
-  border-radius: 20px; letter-spacing: 0.08em; margin-bottom: 16px;
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0) 45%),
+    linear-gradient(135deg, #315d1b 0%, #1f3d11 42%, #14290b 100%);
+  color: #ffdf86;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 10px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255,223,134,0.55);
+  box-shadow:
+    0 10px 20px rgba(26,37,16,0.14),
+    0 0 0 1px rgba(255,248,213,0.12) inset,
+    0 0 18px rgba(255,214,106,0.14);
+  text-shadow: 0 1px 8px rgba(255,214,106,0.18);
+  z-index: 2;
+}
+.ra-offer-badge::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,248,213,0.24) 0%, rgba(255,248,213,0) 52%);
+  pointer-events: none;
 }
 .ra-offer-title {
+  position: relative;
+  z-index: 1;
   font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600;
-  color: var(--text); line-height: 1.6; margin-bottom: 20px;
-  border-bottom: 1px solid var(--borderCard); padding-bottom: 16px;
+  color: var(--text); line-height: 1.7; margin-bottom: 22px;
+  padding-right: 0;
 }
-.ra-price-row { margin-bottom: 4px; }
-.ra-price-old { font-size: 14px; color: var(--gray); text-decoration: line-through; }
-.ra-price-main {
-  display: flex; align-items: flex-end; gap: 4px;
+.ra-price-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(160deg, #23400f 0%, #1a2510 100%);
+  border-radius: 24px;
+  padding: 20px 18px 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 18px 34px rgba(26,37,16,0.24);
+  overflow: hidden;
+  border: 1px solid rgba(246,222,150,0.18);
+}
+.ra-price-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,0.12), transparent 30%),
+    linear-gradient(120deg, transparent 0 44%, rgba(255,255,255,0.05) 44% 49%, transparent 49% 100%);
+  pointer-events: none;
+}
+.ra-price-card::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(246,222,150,0.12);
+  border-radius: 18px;
+  pointer-events: none;
+}
+.ra-price-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.ra-price-old-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(246,222,150,0.9);
+}
+.ra-price-diff {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(246,222,150,0.78);
+  letter-spacing: 0.16em;
+}
+.ra-price-old-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
   margin-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(246,222,150,0.16);
+}
+.ra-price-old-caption {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.56);
+  letter-spacing: 0.08em;
+}
+.ra-price-old {
+  display: inline-block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: rgba(255,248,213,0.42);
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+.ra-price-main {
+  position: relative;
+  display: flex; align-items: flex-end; gap: 4px;
+  margin-bottom: 4px;
   animation: ageIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
 }
 .ra-price-num {
-  font-family: 'Noto Serif JP', serif; font-size: 72px; font-weight: 600;
-  color: var(--accent); line-height: 1;
+  font-family: 'Noto Serif JP', serif; font-size: 88px; font-weight: 600;
+  color: #fff8d5; line-height: 0.92;
+  text-shadow: 0 4px 20px rgba(255,190,72,0.18);
 }
-.ra-price-yen { font-size: 24px; font-weight: 700; color: var(--accent); padding-bottom: 8px; }
+.ra-price-yen {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffd56a;
+  padding-bottom: 12px;
+}
+.ra-price-main::before {
+  content: '5,500';
+  position: absolute;
+  left: 2px;
+  top: -6px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 92px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+}
+.ra-price-sub {
+  position: relative;
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(246,222,150,0.78);
+}
 .ra-price-note {
-  font-size: 12px; background: #fff9c4; color: var(--text);
-  border-left: 3px solid var(--accent);
-  padding: 6px 14px; border-radius: 0 4px 4px 0;
-  display: inline-block; margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 700;
+  background: #fff3c8;
+  color: var(--text);
+  border-left: 4px solid #ffb02e;
+  padding: 8px 14px;
+  border-radius: 0 10px 10px 0;
+  display: inline-block;
+  margin-bottom: 24px;
 }
 
 /* ランク判定ブロック */
@@ -904,6 +1076,36 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   .cta-btn { font-size: 15px; padding: 16px 16px; border-radius: 12px; gap: 8px; }
   .cta-btn .line-icon { width: 22px; height: 22px; }
   .retry-btn { font-size: 13px; padding: 13px 20px; border-radius: 12px; }
+
+  .ra-offer-section { padding: 32px 14px 40px; }
+  .ra-offer-shell { border-radius: 24px; padding: 46px 16px 22px; }
+  .ra-offer-kicker { font-size: 10px; margin-bottom: 12px; }
+  .ra-offer-badge {
+    top: 12px;
+    left: 14px;
+    padding: 8px 12px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .ra-offer-title {
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 18px;
+    padding-right: 0;
+  }
+  .ra-price-card { border-radius: 20px; padding: 18px 14px 16px; margin-bottom: 16px; }
+  .ra-price-row { flex-wrap: wrap; margin-bottom: 8px; }
+  .ra-price-old-label { font-size: 10px; }
+  .ra-price-diff { font-size: 9px; }
+  .ra-price-old-wrap { gap: 8px; padding-bottom: 12px; }
+  .ra-price-old-caption { font-size: 10px; }
+  .ra-price-old { font-size: 24px; }
+  .ra-price-main { gap: 2px; }
+  .ra-price-main::before { font-size: 76px; top: -2px; left: 0; }
+  .ra-price-num { font-size: 74px; }
+  .ra-price-yen { font-size: 24px; padding-bottom: 10px; }
+  .ra-price-sub { font-size: 9px; }
+  .ra-price-note { margin-bottom: 20px; }
 
   .r-bar-section { padding: 20px 16px; }
   .r-message-section { padding: 22px 16px; }
@@ -1106,15 +1308,26 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   <!-- ⑤ オファー -->
   <div class="ra-offer-section">
     <div class="r-inner">
-      <div class="ra-offer-badge">初回限定</div>
-      <div class="ra-offer-title">身体年齢診断 ＋ 足圧測定<br>＋ 酸化チェック ＋ 姿勢分析</div>
-      <div class="ra-price-row">
-        <span class="ra-price-old">通常 5,500円</span>
+      <div class="ra-offer-shell">
+        <div class="ra-offer-badge">初回限定特典</div>
+        <div class="ra-offer-kicker">LINE登録者だけの特別クーポン</div>
+        <div class="ra-offer-title">身体年齢診断 ＋ 足圧測定<br>＋ 酸化チェック ＋ 姿勢分析</div>
+        <div class="ra-price-card">
+          <div class="ra-price-row">
+            <span class="ra-price-old-label">SPECIAL OFFER</span>
+            <span class="ra-price-diff">FIRST VISIT ONLY</span>
+          </div>
+          <div class="ra-price-old-wrap">
+            <span class="ra-price-old-caption">通常価格</span>
+            <span class="ra-price-old">5,500円</span>
+          </div>
+          <div class="ra-price-main">
+            <span class="ra-price-num">500</span><span class="ra-price-yen">円</span>
+          </div>
+          <div class="ra-price-sub">LINE MEMBER PRICE</div>
+        </div>
+        <div class="ra-price-note">LINE登録特典 / 初回のみ適用 / 4種診断セット対象</div>
       </div>
-      <div class="ra-price-main">
-        <span class="ra-price-num">500</span><span class="ra-price-yen">円</span>
-      </div>
-      <div class="ra-price-note">LINE登録特典・初回のみ適用</div>
       <a href="https://line.me/R/ti/p/@xat.0000130802.85a" class="cta-btn" target="_blank" rel="noopener">
         <svg class="line-icon" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20 4C11.16 4 4 10.27 4 18c0 5.5 3.44 10.3 8.6 13.04-.24.9-.93 3.27-1.07 3.78-.17.64.24.63.5.46.2-.13 3.24-2.14 4.56-3.01.84.12 1.7.18 2.58.18C28.84 32.45 36 26.18 36 18S28.84 4 20 4z"/></svg>
         LINEで友だち追加して予約する
