@@ -670,26 +670,23 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   from { opacity:0; transform: scale(0.7); }
   to   { opacity:1; transform: scale(1); }
 }
-@keyframes priceGlow {
+@keyframes priceMetal {
   0%, 100% {
-    text-shadow:
-      0 4px 18px rgba(255,190,72,0.18),
-      0 0 0 rgba(255,232,171,0);
-    filter: brightness(1);
+    background-position: 0% 50%;
+    filter:
+      drop-shadow(0 2px 0 rgba(255,244,209,0.18))
+      drop-shadow(0 0 2px rgba(255,205,92,0.06));
   }
   50% {
-    text-shadow:
-      0 4px 24px rgba(255,208,102,0.3),
-      0 0 18px rgba(255,240,188,0.22);
-    filter: brightness(1.04);
+    background-position: 100% 50%;
+    filter:
+      drop-shadow(0 2px 0 rgba(255,247,224,0.28))
+      drop-shadow(0 0 8px rgba(255,208,102,0.14));
   }
 }
-@keyframes sparkleSweep {
-  0% { transform: translateX(-165%) rotate(16deg); opacity: 0; }
-  18% { opacity: 0.55; }
-  50% { opacity: 0.9; }
-  78% { opacity: 0.4; }
-  100% { transform: translateX(185%) rotate(16deg); opacity: 0; }
+@keyframes pricePulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
 }
 .ra-age-unit { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 2px; }
 .ra-age-col.highlight .ra-age-unit { color: rgba(45,58,26,0.7); }
@@ -709,6 +706,73 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 .ra-risk-section {
   background: var(--bg); padding: 36px 20px;
   border-bottom: 1px solid var(--borderCard);
+}
+.risk-radar-card {
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 24px 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 6px rgba(45,58,26,0.08);
+}
+.risk-radar-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.risk-radar-sub {
+  font-size: 12px;
+  color: var(--gray);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+.risk-radar-stage {
+  position: relative;
+  max-width: 344px;
+  margin: 0 auto;
+}
+.risk-radar-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.risk-radar-grid {
+  fill: none;
+  stroke: rgba(90,102,69,0.18);
+  stroke-width: 1.4;
+}
+.risk-radar-axis-line {
+  stroke: rgba(90,102,69,0.16);
+  stroke-width: 1.2;
+}
+.risk-radar-fill {
+  fill: rgba(232,100,14,0.18);
+  stroke: rgba(201,84,11,0.82);
+  stroke-width: 2.5;
+}
+.risk-radar-point {
+  fill: #d65d12;
+  stroke: #fff8ef;
+  stroke-width: 2;
+}
+.risk-radar-tick {
+  font-size: 10px;
+  fill: rgba(90,102,69,0.78);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.risk-radar-label {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.02em;
+}
+.risk-radar-label tspan {
+  dominant-baseline: middle;
 }
 .risk-card {
   background: var(--paper);
@@ -984,34 +1048,32 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   isolation: isolate;
 }
 .ra-price-num {
+  display: inline-block;
   font-family: 'Noto Serif JP', serif; font-size: 88px; font-weight: 600;
   position: relative;
-  color: #fff8d5; line-height: 0.92;
-  text-shadow: 0 4px 20px rgba(255,190,72,0.18);
-  animation: priceGlow 2.8s ease-in-out infinite;
-}
-.ra-price-num::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -18px;
-  width: 52px;
-  height: 132%;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,248,213,0.14) 30%, rgba(255,255,255,0.8) 50%, rgba(255,248,213,0.16) 70%, rgba(255,255,255,0) 100%);
-  mix-blend-mode: screen;
-  transform: translateX(-165%) rotate(16deg);
-  opacity: 0;
-  pointer-events: none;
-  animation: sparkleSweep 3.2s ease-in-out infinite;
+  color: transparent; line-height: 0.92;
+  background-image: linear-gradient(90deg, #fff5c8 0%, #ffd45f 18%, #fffdf5 34%, #ffbf39 50%, #fff8dd 68%, #ffd76d 82%, #fff1af 100%);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: priceMetal 3.4s ease-in-out infinite, pricePulse 3.4s ease-in-out infinite;
 }
 .ra-price-yen {
+  display: inline-block;
   position: relative;
   font-size: 28px;
   font-weight: 700;
-  color: #ffd56a;
+  color: transparent;
   padding-bottom: 12px;
-  text-shadow: 0 0 14px rgba(255,214,106,0.16);
-  animation: priceGlow 2.8s ease-in-out infinite;
+  background-image: linear-gradient(90deg, #ffefad 0%, #ffd25a 30%, #fff7d7 52%, #ffc53e 76%, #fff0ae 100%);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: priceMetal 3.4s ease-in-out infinite, pricePulse 3.4s ease-in-out infinite;
 }
 .ra-price-main::before {
   content: '5,500';
@@ -1160,14 +1222,15 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   .ra-price-main { gap: 2px; }
   .ra-price-main::before { font-size: 76px; top: -2px; left: 0; }
   .ra-price-num { font-size: 74px; }
-  .ra-price-num::after {
-    top: -8px;
-    left: -14px;
-    width: 42px;
-  }
   .ra-price-yen { font-size: 24px; padding-bottom: 10px; }
   .ra-price-sub { font-size: 9px; }
   .ra-price-note { margin-bottom: 20px; }
+
+  .risk-radar-card { padding: 22px 14px 18px; }
+  .risk-radar-title { font-size: 17px; }
+  .risk-radar-sub { font-size: 11px; margin-bottom: 16px; }
+  .risk-radar-stage { max-width: 300px; }
+  .risk-radar-label { font-size: 11px; }
 
   .r-bar-section { padding: 20px 16px; }
   .r-message-section { padding: 22px 16px; }
@@ -1177,8 +1240,7 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 
 @media (prefers-reduced-motion: reduce) {
   .ra-price-num,
-  .ra-price-yen,
-  .ra-price-num::after {
+  .ra-price-yen {
     animation: none;
   }
 }
@@ -1291,7 +1353,13 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   <div class="ra-risk-section">
     <div class="r-inner">
       <div class="ra-section-title">身体年齢が上がる主な原因</div>
-      <div id="riskCards"></div>
+    <div class="risk-radar-card">
+      <div class="risk-radar-title">5項目リスクレーダーチャート</div>
+      <div class="risk-radar-sub">5段階で、今の身体バランスをわかりやすく可視化しています。</div>
+      <div class="risk-radar-stage">
+        <svg id="riskRadarChart" class="risk-radar-svg" viewBox="0 0 360 360" aria-label="5項目リスクレーダーチャート"></svg>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -1677,7 +1745,7 @@ function renderResult() {
   }
   document.getElementById('raAgeMessage').innerHTML = msgHtml;
 
-  // ===== 4リスク判定 =====
+  // ===== 5項目リスク判定 =====
   function riskLevel(score, max) {
     const pct = score / max;
     if(pct >= 0.67) return 'low';
@@ -1687,62 +1755,158 @@ function renderResult() {
   function riskLabel(level) {
     return { low:'低', middle:'中', high:'高' }[level];
   }
+  function riskPoint(score, max) {
+    const pct = score / max;
+    return Math.max(1, Math.min(5, 5 - Math.round(pct * 4)));
+  }
+  function polygonPoints(values, cx, cy, radius) {
+    return values.map((value, i) => {
+      const angle = (-90 + i * 72) * Math.PI / 180;
+      const rate = value / 5;
+      const x = cx + Math.cos(angle) * radius * rate;
+      const y = cy + Math.sin(angle) * radius * rate;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+  }
+  function ringPoints(level, count, cx, cy, radius) {
+    return Array.from({ length: count }, (_, i) => {
+      const angle = (-90 + i * 72) * Math.PI / 180;
+      const rate = level / 5;
+      const x = cx + Math.cos(angle) * radius * rate;
+      const y = cy + Math.sin(angle) * radius * rate;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+  }
+  function axisPoint(index, level, cx, cy, radius) {
+    const angle = (-90 + index * 72) * Math.PI / 180;
+    const rate = level / 5;
+    return {
+      x: cx + Math.cos(angle) * radius * rate,
+      y: cy + Math.sin(angle) * radius * rate,
+    };
+  }
+  function labelPoint(index, cx, cy, radius, offset = 42) {
+    const angle = (-90 + index * 72) * Math.PI / 180;
+    return {
+      x: cx + Math.cos(angle) * (radius + offset),
+      y: cy + Math.sin(angle) * (radius + offset),
+      cos: Math.cos(angle),
+      sin: Math.sin(angle),
+    };
+  }
 
   // 酸化リスク: nutrition + aging (max=20)
   const oxidScore  = catScores.nutrition + catScores.aging;
   const oxidLevel  = riskLevel(oxidScore, 20);
+  const oxidPoint  = riskPoint(oxidScore, 20);
+  // 足機能低下リスク: foot (max=40)
+  const footScore  = catScores.foot;
+  const footLevel  = riskLevel(footScore, 40);
+  const footPoint  = riskPoint(footScore, 40);
   // 姿勢リスク: foot + posture (max=60)
   const postScore  = catScores.foot + catScores.posture;
   const postLevel  = riskLevel(postScore, 60);
+  const postPoint  = riskPoint(postScore, 60);
   // 睡眠リスク: nerve Q9,Q10 (朝スッキリ・夜ぐっすり) → インデックス8,9
   const sleepScore = (answers[8]?5:0) + (answers[9]?5:0);
   const sleepLevel = riskLevel(sleepScore, 10);
+  const sleepPoint = riskPoint(sleepScore, 10);
   // 自律神経リスク: nerve Q11,Q12 (イライラ・肩こり) → インデックス10,11
   const nerveScore = (answers[10]?5:0) + (answers[11]?5:0);
   const nerveLevel = riskLevel(nerveScore, 10);
+  const nervePoint = riskPoint(nerveScore, 10);
 
   const risks = [
     {
       num:'①', name:'酸化リスク', level: oxidLevel,
+      point: oxidPoint, max: 20, raw: oxidScore,
       desc:'身体のサビつき傾向です。',
       symptoms:['疲れが抜けにくい','朝スッキリ起きられない','肌や髪の老化が気になる','慢性的な不調が続く'],
       footer:'このような方は酸化リスクが高い傾向があります。'
     },
     {
-      num:'②', name:'姿勢リスク', level: postLevel,
+      num:'②', name:'足機能低下リスク', level: footLevel,
+      point: footPoint, max: 40, raw: footScore,
+      desc:'足指の動きや片足立ちなど、足そのものの機能低下傾向です。',
+      symptoms:['足がつりやすい','片足立ちが不安定','足指が使いにくい','靴底の減り方が偏る'],
+      footer:'このような方は足機能低下リスクが高い傾向があります。'
+    },
+    {
+      num:'③', name:'姿勢リスク', level: postLevel,
+      point: postPoint, max: 60, raw: postScore,
       desc:'身体の土台である足元や姿勢の乱れです。',
       symptoms:['肩こり','腰痛','膝痛','疲れやすい','転びやすい'],
       footer:'このような方は姿勢リスクが高い傾向があります。'
     },
     {
-      num:'③', name:'睡眠リスク', level: sleepLevel,
+      num:'④', name:'睡眠リスク', level: sleepLevel,
+      point: sleepPoint, max: 10, raw: sleepScore,
       desc:'回復力に関係する睡眠の状態です。',
       symptoms:['眠りが浅い','途中で目が覚める','朝から疲れている','日中眠くなる'],
       footer:'このような方は睡眠リスクが高い傾向があります。'
     },
     {
-      num:'④', name:'自律神経リスク', level: nerveLevel,
+      num:'⑤', name:'自律神経リスク', level: nerveLevel,
+      point: nervePoint, max: 10, raw: nerveScore,
       desc:'自律神経のバランスを示します。',
       symptoms:['イライラしやすい','気圧に左右される','頭痛がある','冷えやのぼせがある'],
       footer:'このような方は自律神経のバランスが乱れている可能性があります。'
     }
   ];
 
-  const riskContainer = document.getElementById('riskCards');
-  riskContainer.innerHTML = risks.map(r => `
-    <div class="risk-card">
-      <div class="risk-card-header">
-        <div class="risk-card-name">${r.num} ${r.name}</div>
-        <div class="risk-badge ${r.level}">${riskLabel(r.level)}</div>
-      </div>
-      <div class="risk-divider"></div>
-      <div class="risk-desc">${r.desc}</div>
-      <ul class="risk-symptoms">
-        ${r.symptoms.map(s => `<li${r.level==='high' ? ' class="active"' : ''}>${s}</li>`).join('')}
-      </ul>
-      <div class="risk-card-footer">${r.footer}</div>
-    </div>
-  `).join('');
+  const radarSvg = document.getElementById('riskRadarChart');
+  const cx = 180;
+  const cy = 184;
+  const radius = 98;
+  const ringSvg = Array.from({ length: 5 }, (_, i) => {
+    const level = i + 1;
+    return `<polygon class="risk-radar-grid" points="${ringPoints(level, risks.length, cx, cy, radius)}"></polygon>`;
+  }).join('');
+  const axisSvg = risks.map((_, i) => {
+    const p = axisPoint(i, 5, cx, cy, radius);
+    return `<line class="risk-radar-axis-line" x1="${cx}" y1="${cy}" x2="${p.x.toFixed(1)}" y2="${p.y.toFixed(1)}"></line>`;
+  }).join('');
+  const tickSvg = Array.from({ length: 6 }, (_, i) => {
+    const level = 5 - i;
+    const y = cy - radius * (level / 5);
+    return `<text class="risk-radar-tick" x="${cx - 14}" y="${y + 4}">${level}</text>`;
+  }).join('');
+  const fillPoints = polygonPoints(risks.map(r => r.point), cx, cy, radius);
+  const pointSvg = risks.map((r, i) => {
+    const p = axisPoint(i, r.point, cx, cy, radius);
+    return `<circle class="risk-radar-point" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.2"></circle>`;
+  }).join('');
+  const labelSvg = risks.map((r, i) => {
+    const vertex = axisPoint(i, 5, cx, cy, radius);
+    const labelLayouts = [
+      { dx: 0, dy: -28, anchor: 'middle' },
+      { dx: 18, dy: -2, anchor: 'start' },
+      { dx: 10, dy: 28, anchor: 'middle' },
+      { dx: -10, dy: 28, anchor: 'middle' },
+      { dx: -18, dy: -2, anchor: 'end' }
+    ];
+    const layout = labelLayouts[i];
+    const labelX = vertex.x + layout.dx;
+    const labelY = vertex.y + layout.dy;
+    const lines = r.name === '足機能低下リスク'
+      ? ['足機能低下', 'リスク']
+      : [r.name];
+    const startY = labelY - ((lines.length - 1) * 7.5);
+    return `
+      <text class="risk-radar-label" x="${labelX.toFixed(1)}" y="${startY.toFixed(1)}" text-anchor="${layout.anchor}">
+        ${lines.map((line, idx) => `<tspan x="${labelX.toFixed(1)}" dy="${idx === 0 ? 0 : 16}">${line}</tspan>`).join('')}
+      </text>
+    `;
+  }).join('');
+  radarSvg.innerHTML = `
+    ${ringSvg}
+    ${axisSvg}
+    ${tickSvg}
+    <polygon class="risk-radar-fill" points="${fillPoints}"></polygon>
+    ${pointSvg}
+    ${labelSvg}
+  `;
+
 }
 
 function retryQuiz() {
