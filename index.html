@@ -797,9 +797,9 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   font-size: 12px; font-weight: 700; padding: 5px 16px;
   border-radius: 20px; letter-spacing: 0.06em;
 }
-.risk-badge.high   { background: #c0392b; color: #fff; }
+.risk-badge.high   { background: var(--brand); color: var(--text); }
 .risk-badge.middle { background: #e67e22; color: #fff; }
-.risk-badge.low    { background: var(--brand); color: var(--text); }
+.risk-badge.low    { background: #c0392b; color: #fff; }
 .risk-divider {
   height: 1px; background: var(--borderCard); margin-bottom: 12px;
 }
@@ -1760,16 +1760,16 @@ function renderResult() {
   // ===== 5項目リスク判定 =====
   function riskLevel(score, max) {
     const pct = score / max;
-    if(pct >= 0.67) return 'low';
+    if(pct >= 0.67) return 'high';
     if(pct >= 0.34) return 'middle';
-    return 'high';
+    return 'low';
   }
   function riskLabel(level) {
     return { low:'低', middle:'中', high:'高' }[level];
   }
   function riskPoint(score, max) {
     const pct = score / max;
-    return Math.max(1, Math.min(5, 5 - Math.round(pct * 4)));
+    return Math.max(1, Math.min(5, 1 + Math.round(pct * 4)));
   }
   function polygonPoints(values, cx, cy, radius) {
     return values.map((value, i) => {
@@ -1807,62 +1807,62 @@ function renderResult() {
     };
   }
 
-  // 酸化リスク: nutrition + aging (max=20)
+  // 酸化還元力: nutrition + aging (max=20)
   const oxidScore  = catScores.nutrition + catScores.aging;
   const oxidLevel  = riskLevel(oxidScore, 20);
   const oxidPoint  = riskPoint(oxidScore, 20);
-  // 足機能低下リスク: foot (max=40)
+  // 足腰の強さ: foot (max=40)
   const footScore  = catScores.foot;
   const footLevel  = riskLevel(footScore, 40);
   const footPoint  = riskPoint(footScore, 40);
-  // 姿勢リスク: foot + posture (max=60)
+  // 姿勢体感バランス: foot + posture (max=60)
   const postScore  = catScores.foot + catScores.posture;
   const postLevel  = riskLevel(postScore, 60);
   const postPoint  = riskPoint(postScore, 60);
-  // 睡眠リスク: nerve Q9,Q10 (朝スッキリ・夜ぐっすり) → インデックス8,9
+  // 睡眠の質: nerve Q9,Q10 (朝スッキリ・夜ぐっすり) → インデックス8,9
   const sleepScore = (answers[8]?5:0) + (answers[9]?5:0);
   const sleepLevel = riskLevel(sleepScore, 10);
   const sleepPoint = riskPoint(sleepScore, 10);
-  // 自律神経リスク: nerve Q11,Q12 (イライラ・肩こり) → インデックス10,11
+  // 自律神経バランス: nerve Q11,Q12 (イライラ・肩こり) → インデックス10,11
   const nerveScore = (answers[10]?5:0) + (answers[11]?5:0);
   const nerveLevel = riskLevel(nerveScore, 10);
   const nervePoint = riskPoint(nerveScore, 10);
 
   const risks = [
     {
-      num:'①', name:'酸化リスク', level: oxidLevel,
+      num:'①', name:'酸化還元力', level: oxidLevel,
       point: oxidPoint, max: 20, raw: oxidScore,
-      desc:'身体のサビつき傾向です。',
+      desc:'身体のサビつきに負けにくい力の目安です。',
       symptoms:['疲れが抜けにくい','朝スッキリ起きられない','肌や髪の老化が気になる','慢性的な不調が続く'],
-      footer:'このような方は酸化リスクが高い傾向があります。'
+      footer:'数値が高いほど、健やかなコンディションが保たれています。'
     },
     {
-      num:'②', name:'足機能低下リスク', level: footLevel,
+      num:'②', name:'足腰の強さ', level: footLevel,
       point: footPoint, max: 40, raw: footScore,
-      desc:'足指の動きや片足立ちなど、足そのものの機能低下傾向です。',
+      desc:'足指・片足立ち・足元の安定感などを示します。',
       symptoms:['足がつりやすい','片足立ちが不安定','足指が使いにくい','靴底の減り方が偏る'],
-      footer:'このような方は足機能低下リスクが高い傾向があります。'
+      footer:'数値が高いほど、足元から身体を支える力が保たれています。'
     },
     {
-      num:'③', name:'姿勢リスク', level: postLevel,
+      num:'③', name:'姿勢体感バランス', level: postLevel,
       point: postPoint, max: 60, raw: postScore,
-      desc:'身体の土台である足元や姿勢の乱れです。',
+      desc:'足元や姿勢、動作の安定感を示します。',
       symptoms:['肩こり','腰痛','膝痛','疲れやすい','転びやすい'],
-      footer:'このような方は姿勢リスクが高い傾向があります。'
+      footer:'数値が高いほど、姿勢と身体の使い方のバランスが整っています。'
     },
     {
-      num:'④', name:'睡眠リスク', level: sleepLevel,
+      num:'④', name:'睡眠の質', level: sleepLevel,
       point: sleepPoint, max: 10, raw: sleepScore,
-      desc:'回復力に関係する睡眠の状態です。',
+      desc:'回復力につながる睡眠状態の目安です。',
       symptoms:['眠りが浅い','途中で目が覚める','朝から疲れている','日中眠くなる'],
-      footer:'このような方は睡眠リスクが高い傾向があります。'
+      footer:'数値が高いほど、しっかり休めている状態です。'
     },
     {
-      num:'⑤', name:'自律神経リスク', level: nerveLevel,
+      num:'⑤', name:'自律神経バランス', level: nerveLevel,
       point: nervePoint, max: 10, raw: nerveScore,
-      desc:'自律神経のバランスを示します。',
+      desc:'自律神経の安定しやすさを示します。',
       symptoms:['イライラしやすい','気圧に左右される','頭痛がある','冷えやのぼせがある'],
-      footer:'このような方は自律神経のバランスが乱れている可能性があります。'
+      footer:'数値が高いほど、自律神経のバランスが整いやすい状態です。'
     }
   ];
 
@@ -1900,9 +1900,11 @@ function renderResult() {
     const layout = labelLayouts[i];
     const labelX = vertex.x + layout.dx;
     const labelY = vertex.y + layout.dy;
-    const lines = r.name === '足機能低下リスク'
-      ? ['足機能低下', 'リスク']
-      : [r.name];
+    const lines = r.name === '姿勢体感バランス'
+      ? ['姿勢体感', 'バランス']
+      : (r.name === '自律神経バランス'
+        ? ['自律神経', 'バランス']
+        : [r.name]);
     const startY = labelY - ((lines.length - 1) * 7.5);
     return `
       <text class="risk-radar-label" x="${labelX.toFixed(1)}" y="${startY.toFixed(1)}" text-anchor="${layout.anchor}">
@@ -1930,7 +1932,7 @@ function renderResult() {
         <div class="risk-divider"></div>
         <div class="risk-desc">${r.desc}</div>
         <ul class="risk-symptoms">
-          ${r.symptoms.map(s => `<li class="${r.level === 'high' ? 'active' : (r.level === 'middle' ? 'middle' : '')}">${s}</li>`).join('')}
+          ${r.symptoms.map(s => `<li class="${r.level === 'low' ? 'active' : (r.level === 'middle' ? 'middle' : '')}">${s}</li>`).join('')}
         </ul>
         <div class="risk-card-footer">${r.footer}</div>
       </div>
