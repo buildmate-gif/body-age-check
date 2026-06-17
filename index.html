@@ -774,6 +774,9 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 .risk-radar-label tspan {
   dominant-baseline: middle;
 }
+.risk-cards-wrap {
+  margin-top: 16px;
+}
 .risk-card {
   background: var(--paper);
   border-radius: 16px;
@@ -811,6 +814,9 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
 }
 .risk-symptoms li.active {
   background: #fdf2f2; border-color: #e6b8b8; color: #c0392b; font-weight: 700;
+}
+.risk-symptoms li.middle {
+  background: #fff8ef; border-color: #efd5b8; color: #b86d1b; font-weight: 700;
 }
 .risk-card-footer {
   font-size: 12px; color: var(--gray);
@@ -1231,6 +1237,11 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   .risk-radar-sub { font-size: 11px; margin-bottom: 16px; }
   .risk-radar-stage { max-width: 300px; }
   .risk-radar-label { font-size: 11px; }
+  .risk-card { padding: 20px 16px; }
+  .risk-card-name { font-size: 14px; }
+  .risk-badge { padding: 5px 14px; }
+  .risk-desc { font-size: 12px; }
+  .risk-symptoms li { font-size: 11px; padding: 4px 10px; }
 
   .r-bar-section { padding: 20px 16px; }
   .r-message-section { padding: 22px 16px; }
@@ -1353,13 +1364,14 @@ footer p { color: rgba(255,255,255,0.5); font-size: 11px; }
   <div class="ra-risk-section">
     <div class="r-inner">
       <div class="ra-section-title">身体年齢が上がる主な原因</div>
-    <div class="risk-radar-card">
-      <div class="risk-radar-title">5項目リスクレーダーチャート</div>
-      <div class="risk-radar-sub">5段階で、今の身体バランスをわかりやすく可視化しています。</div>
-      <div class="risk-radar-stage">
-        <svg id="riskRadarChart" class="risk-radar-svg" viewBox="0 0 360 360" aria-label="5項目リスクレーダーチャート"></svg>
+      <div class="risk-radar-card">
+        <div class="risk-radar-title">5項目リスクレーダーチャート</div>
+        <div class="risk-radar-sub">5段階で、今の身体バランスをわかりやすく可視化しています。</div>
+        <div class="risk-radar-stage">
+          <svg id="riskRadarChart" class="risk-radar-svg" viewBox="0 0 360 360" aria-label="5項目リスクレーダーチャート"></svg>
+        </div>
       </div>
-    </div>
+      <div id="riskCards" class="risk-cards-wrap"></div>
     </div>
   </div>
 
@@ -1880,10 +1892,10 @@ function renderResult() {
     const vertex = axisPoint(i, 5, cx, cy, radius);
     const labelLayouts = [
       { dx: 0, dy: -28, anchor: 'middle' },
-      { dx: 18, dy: -2, anchor: 'start' },
-      { dx: 10, dy: 28, anchor: 'middle' },
-      { dx: -10, dy: 28, anchor: 'middle' },
-      { dx: -18, dy: -2, anchor: 'end' }
+      { dx: 10, dy: -2, anchor: 'start' },
+      { dx: 8, dy: 28, anchor: 'middle' },
+      { dx: -8, dy: 28, anchor: 'middle' },
+      { dx: -14, dy: -2, anchor: 'end' }
     ];
     const layout = labelLayouts[i];
     const labelX = vertex.x + layout.dx;
@@ -1906,6 +1918,24 @@ function renderResult() {
     ${pointSvg}
     ${labelSvg}
   `;
+
+  const riskContainer = document.getElementById('riskCards');
+  if (riskContainer) {
+    riskContainer.innerHTML = risks.map(r => `
+      <div class="risk-card">
+        <div class="risk-card-header">
+          <div class="risk-card-name">${r.num} ${r.name}</div>
+          <div class="risk-badge ${r.level}">${riskLabel(r.level)}</div>
+        </div>
+        <div class="risk-divider"></div>
+        <div class="risk-desc">${r.desc}</div>
+        <ul class="risk-symptoms">
+          ${r.symptoms.map(s => `<li class="${r.level === 'high' ? 'active' : (r.level === 'middle' ? 'middle' : '')}">${s}</li>`).join('')}
+        </ul>
+        <div class="risk-card-footer">${r.footer}</div>
+      </div>
+    `).join('');
+  }
 
 }
 
